@@ -7,7 +7,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import com.monopoly.models.Card;
+import com.monopoly.models.ChanceCard;
 
 public class PropertyCardViewer extends AbstractViewer {
 
@@ -22,7 +22,7 @@ public class PropertyCardViewer extends AbstractViewer {
 	JLabel labelPropertyType = new JLabel("Property Type");
 	JLabel labelPropertyCost = new JLabel("Property Cost");
 	
-	JLabel labelHouseCost = new JLabel(imageHouseCost, "Cost of house");
+	JLabel labelHouseCost = new JLabel("Cost of house");
 	
 	public PropertyCardViewer() {
 		super();
@@ -32,7 +32,7 @@ public class PropertyCardViewer extends AbstractViewer {
 		
 	}
 	
-	public void setData(Card propertyCard) {
+	public void setData(ChanceCard propertyCard) {
 		
 	}
 	

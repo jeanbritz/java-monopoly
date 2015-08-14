@@ -1,25 +1,24 @@
 package com.monopoly.models;
 
-public class Card {
+public class ChanceCard {
+	
+	public static String CC_ID = "CardId";
+	public static String CC_GROUP = "Group";
+	public static String CC_TYPE = "Type";
+	public static String CC_MESSAGE = "Message";
+	public static String CC_CONSEQUENCE = "Consequence";
+		
 	private int id;
 	private String group;
 	private String type;
 	private String consequence;
 	private String message;
 	private boolean inUse = false;
-	
-	
-	
-	Card(int id, String group, String type, String cons, String msg) {
-		super();
-		this.id = id;
-		this.group = group;
-		this.type = type;
-		this.consequence = cons;
-		this.message = msg;
-		this.inUse = false;
+				
+	public ChanceCard() {
+		
 	}
-	
+
 	public int getId() {
 		return this.id;
 	}

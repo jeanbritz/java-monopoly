@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
+import com.monopoly.models.ChanceCard;
 import com.monopoly.models.Property;
 
 public class DataLoader {
@@ -26,7 +27,6 @@ public class DataLoader {
 
 	private Connection getConnection() {
 		try {
-			Properties p = System.getProperties();
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 			String db = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=";
 			db += filePath;
@@ -53,6 +53,35 @@ public class DataLoader {
 		JOptionPane.showMessageDialog(null, text);
 	}
 	
+	public ArrayList<ChanceCard> getChanceCards() {
+		conn = getConnection();
+		String query = "select * from Cards";
+		ArrayList<ChanceCard> result = new ArrayList<ChanceCard>();
+		ChanceCard rec = null;
+		ResultSet rs = null;
+		try {
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				rec = new ChanceCard();
+				rec.setId(rs.getInt(ChanceCard.CC_ID));
+				rec.setGroup(rs.getString(ChanceCard.CC_GROUP));
+				rec.setType(rs.getString(ChanceCard.CC_TYPE));
+				rec.setMessage(rs.getString(ChanceCard.CC_MESSAGE));
+				rec.setConsequence(rs.getString(ChanceCard.CC_CONSEQUENCE));
+				result.add(rec);
+			}
+		} catch (SQLException e) {
+			showMessage(e.getMessage());
+			e.printStackTrace();
+		}
+		closeDb();
+		
+		
+		return result;
+		
+	}
+	
 	public ArrayList<Property> getPropertyCards() {
 		conn = getConnection();
 		String query = "select * from Properties";
@@ -74,6 +103,7 @@ public class DataLoader {
 				int x = rs.getInt(Property.P_BOARD_POS_X);
 				int y = rs.getInt(Property.P_BOARD_POS_Y);
 				rec.setBoardLocation(new Point(x, y));
+				result.add(rec);
 			}
 		} catch (SQLException e) {
 			showMessage(e.getMessage());
@@ -85,11 +115,7 @@ public class DataLoader {
 		return result;
 		
 	}
-	
-	public int getPropertyCardsCount() {
 		
-	}
-	
 	public static void main (String [] args) {
 		DataLoader loader = new DataLoader();
 		loader.getPropertyCards();
