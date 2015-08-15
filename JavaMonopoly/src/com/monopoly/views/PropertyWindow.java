@@ -1,4 +1,4 @@
-package com.monopoly.dialog;
+package com.monopoly.views;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -17,8 +17,13 @@ import javax.swing.JWindow;
 
 import com.monopoly.models.Property;
 
-public class PropertyDialog extends JWindow implements ActionListener {
+public class PropertyWindow extends JWindow implements ActionListener, IView {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	ImageIcon icon = new ImageIcon("data\\icons\\info.gif");
 	
 	JPanel topPanel = new JPanel(new BorderLayout(1,1));
@@ -41,13 +46,13 @@ public class PropertyDialog extends JWindow implements ActionListener {
 	Font listFont = new Font ("Arial", 0, 20);
 	
 	int selected = -1;
-	CardDialog viewer = new CardDialog();
+	PropertyCardViewer viewer = new PropertyCardViewer();
 	
 	Property properties[] = new Property[40];
 	Property forSaleProps[] = new Property[40];
 	
-	PropertyDialog() {
-		init();
+	PropertyWindow() {
+		initUI();
 		setBounds(660, 175, 340, 300);
 		addPropArray(properties, "All");
 	}
@@ -64,6 +69,18 @@ public class PropertyDialog extends JWindow implements ActionListener {
 		if(event.getSource() == btnView) {
 			
 		}
+	}
+
+	@Override
+	public void initUI() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUI() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

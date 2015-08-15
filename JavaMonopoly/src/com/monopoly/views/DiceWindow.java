@@ -1,4 +1,4 @@
-package com.monopoly;
+package com.monopoly.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,6 +7,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
@@ -20,7 +21,7 @@ import javax.swing.border.TitledBorder;
  * @since 1.0
  * 
  */
-public class Dice extends JWindow {
+public class DiceWindow extends JComponent implements IView {
 
 	/**
 	 * 
@@ -48,16 +49,17 @@ public class Dice extends JWindow {
 	private int first;
 	private int second;
 		
-	public Dice() {
+	public DiceWindow() {
 		super();
 		initUI();
 	}
-
+	
+	@Override
 	public void initUI() {
 		labelOutcome.setFont(fontResult);
 		labelOutcome.setHorizontalAlignment(JLabel.CENTER);
 		setBounds(660, 485, 340, 165);
-		getContentPane().setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		panelDice.add(labelFirst);
 		panelDice.add(labelSecond);
 		panelTop.add(panelDice,BorderLayout.CENTER);
@@ -65,7 +67,8 @@ public class Dice extends JWindow {
 		border = BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(184,0,0));
 		titledBorder = new TitledBorder(border, "The Dices", 1, 1, fontTitledBorder, Color.black);
 		panelTop.setBorder(titledBorder);
-		getContentPane().add(panelTop, BorderLayout.CENTER);
+		add(panelTop, BorderLayout.CENTER);
+		
 	}
 	
 	public void roll() {
@@ -85,7 +88,8 @@ public class Dice extends JWindow {
 		return (this.first == this.second);
 	}
 	
-	private void updateUI() {
+	@Override
+	public void updateUI() {
 		labelFirst.setIcon(new ImageIcon(IMAGE_FOLDER + this.first + ".jpg"));
 		labelSecond.setIcon(new ImageIcon(IMAGE_FOLDER + this.second + ".jpg"));
 		labelOutcome.setText(String.valueOf(getOutcome()));

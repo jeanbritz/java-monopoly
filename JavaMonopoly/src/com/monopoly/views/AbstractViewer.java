@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.monopoly.dialog;
+package com.monopoly.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

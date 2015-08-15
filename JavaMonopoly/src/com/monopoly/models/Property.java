@@ -3,7 +3,7 @@ package com.monopoly.models;
 import java.awt.Point;
 import java.util.List;
 
-import com.monopoly.Player;
+import com.monopoly.controllers.Player;
 
 public class Property {
 	
