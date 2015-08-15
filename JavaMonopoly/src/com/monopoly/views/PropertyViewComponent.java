@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,7 +18,7 @@ import javax.swing.JWindow;
 
 import com.monopoly.models.Property;
 
-public class PropertyWindow extends JWindow implements ActionListener, IView {
+public class PropertyViewComponent extends JComponent implements ActionListener, IViewComponent {
 	
 	/**
 	 * 
@@ -46,13 +47,13 @@ public class PropertyWindow extends JWindow implements ActionListener, IView {
 	Font listFont = new Font ("Arial", 0, 20);
 	
 	int selected = -1;
-	PropertyCardViewer viewer = new PropertyCardViewer();
+	PropertyCardDialog viewer = new PropertyCardDialog();
 	
 	Property properties[] = new Property[40];
 	Property forSaleProps[] = new Property[40];
 	
-	PropertyWindow() {
-		initUI();
+	PropertyViewComponent() {
+		initView();
 		setBounds(660, 175, 340, 300);
 		addPropArray(properties, "All");
 	}
@@ -72,13 +73,13 @@ public class PropertyWindow extends JWindow implements ActionListener, IView {
 	}
 
 	@Override
-	public void initUI() {
+	public void initView() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void updateUI() {
+	public void updateView() {
 		// TODO Auto-generated method stub
 		
 	}

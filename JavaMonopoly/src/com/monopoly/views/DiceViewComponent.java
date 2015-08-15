@@ -21,14 +21,14 @@ import javax.swing.border.TitledBorder;
  * @since 1.0
  * 
  */
-public class DiceWindow extends JComponent implements IView {
+public class DiceViewComponent extends JPanel implements IViewComponent {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final String IMAGE_FOLDER = "images\\dice";
+	public static final String IMAGE_FOLDER = "assets\\dice";
 	
 	JPanel panelTop = new JPanel(new BorderLayout());
 	JPanel panelDice = new JPanel(new FlowLayout());
@@ -49,13 +49,13 @@ public class DiceWindow extends JComponent implements IView {
 	private int first;
 	private int second;
 		
-	public DiceWindow() {
+	public DiceViewComponent() {
 		super();
-		initUI();
+		initView();
 	}
 	
 	@Override
-	public void initUI() {
+	public void initView() {
 		labelOutcome.setFont(fontResult);
 		labelOutcome.setHorizontalAlignment(JLabel.CENTER);
 		setBounds(660, 485, 340, 165);
@@ -73,10 +73,10 @@ public class DiceWindow extends JComponent implements IView {
 	
 	public void roll() {
 		
-		reset();
+		
 		this.first = (int)(Math.random() * 6) + 1;
 		this.second = (int)(Math.random() * 6) + 1;
-		updateUI();
+		
 		
 	}
 	
@@ -89,16 +89,15 @@ public class DiceWindow extends JComponent implements IView {
 	}
 	
 	@Override
-	public void updateUI() {
-		labelFirst.setIcon(new ImageIcon(IMAGE_FOLDER + this.first + ".jpg"));
-		labelSecond.setIcon(new ImageIcon(IMAGE_FOLDER + this.second + ".jpg"));
+	public void updateView() {
+		//super.updateUI();
+		ImageIcon iconFirst = new ImageIcon(IMAGE_FOLDER + this.first + ".jpg"); 
+		//labelFirst.setIcon(iconFirst);
+		//labelSecond.setIcon(new ImageIcon(IMAGE_FOLDER + this.second + ".jpg"));
 		labelOutcome.setText(String.valueOf(getOutcome()));
 		panelTop.updateUI();
 	}
 	
-	private void reset () {
 		
-	}
-	
 	
 }

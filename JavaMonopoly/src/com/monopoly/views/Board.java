@@ -8,7 +8,7 @@ import java.awt.Toolkit;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class Board extends JComponent implements IView  {
+public class Board extends JComponent implements IViewComponent  {
 	
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class Board extends JComponent implements IView  {
 	private int width = 560;
 	
 	Board() {
-		initUI();
+		initView();
 	}
 	
 	public Image getImage() {
@@ -47,7 +47,7 @@ public class Board extends JComponent implements IView  {
 	}
 
 	@Override
-	public void initUI() {
+	public void initView() {
 		setBounds(0, 0, 300, 300);
 		setBackground(Color.black);
 		

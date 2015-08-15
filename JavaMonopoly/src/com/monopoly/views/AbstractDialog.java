@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  * @author BritzJ
  *
  */
-public abstract class AbstractViewer extends JDialog implements ActionListener {
+public abstract class AbstractDialog extends JDialog implements ActionListener {
 
 	/**
 	 * 
@@ -41,7 +41,7 @@ public abstract class AbstractViewer extends JDialog implements ActionListener {
 	
 	
 	
-	public AbstractViewer() {
+	public AbstractDialog() {
 		super();
 		initUI();
 		pack();

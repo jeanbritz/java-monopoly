@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 import com.monopoly.models.ChanceCard;
 
-public class PropertyCardViewer extends AbstractViewer {
+public class PropertyCardDialog extends AbstractDialog {
 
 	
 	/**
@@ -24,7 +24,7 @@ public class PropertyCardViewer extends AbstractViewer {
 	
 	JLabel labelHouseCost = new JLabel("Cost of house");
 	
-	public PropertyCardViewer() {
+	public PropertyCardDialog() {
 		super();
 		
 		setTitle("Monopoly");

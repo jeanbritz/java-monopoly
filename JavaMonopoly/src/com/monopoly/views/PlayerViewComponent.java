@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class PlayerWindow extends JComponent implements ActionListener, IView {
+public class PlayerViewComponent extends JPanel implements ActionListener, IViewComponent {
 
 	/**
 	 * 
@@ -43,12 +43,12 @@ public class PlayerWindow extends JComponent implements ActionListener, IView {
 	JButton buttonCheckRent = new JButton("Check if someone owes me rent");
 	
 	
-	public PlayerWindow() {
-		
+	public PlayerViewComponent() {
+		initView();
 	}
 	
 	@Override
-	public void initUI() {
+	public void initView() {
 		setBounds(50, 660, 950, 150);
 		
 		labelMoney = new JLabel("None");
@@ -60,7 +60,7 @@ public class PlayerWindow extends JComponent implements ActionListener, IView {
 		panelActionButtons.add(buttonRoll);
 		panelActionButtons.add(buttonEndTurn);
 		panelActionButtons.add(buttonCheckRent);
-		panelToken.setLayout(new BoxLayout(panelInfo, 1));
+		//panelToken.setLayout(new BoxLayout(panelInfo, 1));
 		panelToken.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		panelToken.add(labelToken);
 		panelInfo.add(panelToken);
@@ -73,8 +73,8 @@ public class PlayerWindow extends JComponent implements ActionListener, IView {
 		buttonRoll.addActionListener(this);
 		buttonBuy.addActionListener(this);
 		buttonCheckRent.addActionListener(this);
-		getContentPane().add(panelTop);
-		pack();
+		add(panelTop);
+		
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class PlayerWindow extends JComponent implements ActionListener, IView {
 	}
 
 	@Override
-	public void updateUI() {
+	public void updateView() {
 		
 		
 	}
