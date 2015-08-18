@@ -1,5 +1,6 @@
 package com.monopoly.views;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -7,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import com.monopoly.DataLoader;
+import com.monopoly.AssetLoader;
 
 public class Monopoly extends JFrame implements ActionListener {
 
@@ -21,7 +22,7 @@ public class Monopoly extends JFrame implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	
-	DataLoader loader;
+	AssetLoader loader;
 	private Board board;
 	private DiceViewComponent dice;
 	private PropertyViewComponent property;
@@ -43,13 +44,13 @@ public class Monopoly extends JFrame implements ActionListener {
 		
 		board = new Board();
 		dice = new DiceViewComponent();
-		getContentPane().setLayout(new FlowLayout());
-		//property = new PropertyViewComponent();
+		getContentPane().setLayout(new BorderLayout());
+		property = new PropertyViewComponent();
 		player = new PlayerViewComponent();
-		//getContentPane().add(board);
-		getContentPane().add(dice);
+		getContentPane().add(board, BorderLayout.CENTER);
+		getContentPane().add(dice, BorderLayout.LINE_END);
 		//getContentPane().add(property);
-		getContentPane().add(player);
+		getContentPane().add(player, BorderLayout.PAGE_END);
 		pack();
 		
 		run();

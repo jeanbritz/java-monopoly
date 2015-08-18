@@ -1,6 +1,12 @@
 package com.monopoly;
 
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.ImageFilter;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,14 +20,14 @@ import javax.swing.JOptionPane;
 import com.monopoly.models.ChanceCard;
 import com.monopoly.models.Property;
 
-public class DataLoader {
+public class AssetLoader {
 
 	Connection conn;
 	String filePath = System.getProperty("user.dir") + "\\src\\com\\monopoly\\data\\data.mdb";
 	
 	
 	
-	public DataLoader() {
+	public AssetLoader() {
 				
 	}
 
@@ -115,9 +121,40 @@ public class DataLoader {
 		return result;
 		
 	}
-		
-	public static void main (String [] args) {
-		DataLoader loader = new DataLoader();
-		loader.getPropertyCards();
+	public static Image loadImage(String resource) throws FileNotFoundException {
+		File folder = new File(System.getProperty("user.dir") + File.separatorChar +"assets");
+		File list[] = folder.listFiles(new ImageFileFilter());
+		for (int i = 0; i < list.length; i++) {
+						if(list[i].getName().contains(resource.toLowerCase()))
+			return Toolkit.getDefaultToolkit().getImage(list[i].getAbsolutePath());
+		}
+		throw new FileNotFoundException();
 	}
+	public static void main (String [] args) {
+		try {
+			AssetLoader.loadImage(null);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static class ImageFileFilter implements FileFilter
+	{
+	  private final String[] allowedfileExt = 
+	    new String[] {"jpg", "png", "gif"};
+	 
+	  public boolean accept(File file)
+	  {
+	    for (String extension : allowedfileExt)
+	    {
+	      if (file.getName().toLowerCase().endsWith(extension))
+	      {
+	        return true;
+	      }
+	    }
+	    return false;
+	  }
+	}
+	
 }

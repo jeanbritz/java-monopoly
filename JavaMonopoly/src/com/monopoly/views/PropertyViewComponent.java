@@ -18,7 +18,7 @@ import javax.swing.JWindow;
 
 import com.monopoly.models.Property;
 
-public class PropertyViewComponent extends JComponent implements ActionListener, IViewComponent {
+public class PropertyViewComponent extends JPanel implements ActionListener, IViewComponent {
 	
 	/**
 	 * 
