@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class PlayerViewComponent extends JPanel implements ActionListener, IViewComponent {
+public class PlayerActionsViewComponent extends JPanel implements ActionListener, IViewComponent {
 
 	/**
 	 * 
@@ -43,7 +43,7 @@ public class PlayerViewComponent extends JPanel implements ActionListener, IView
 	JButton buttonCheckRent = new JButton("Check if someone owes me rent");
 	
 	
-	public PlayerViewComponent() {
+	public PlayerActionsViewComponent() {
 		initView();
 	}
 	

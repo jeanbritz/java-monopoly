@@ -1,17 +1,7 @@
 package com.monopoly.views;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.monopoly.AssetLoader;

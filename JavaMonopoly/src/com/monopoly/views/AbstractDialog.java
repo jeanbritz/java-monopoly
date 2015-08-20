@@ -1,9 +1,6 @@
-/**
- * 
- */
+
 package com.monopoly.views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -44,6 +41,7 @@ public abstract class AbstractDialog extends JDialog implements ActionListener {
 	public AbstractDialog() {
 		super();
 		initUI();
+		buttonClose.addActionListener(this);
 		pack();
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

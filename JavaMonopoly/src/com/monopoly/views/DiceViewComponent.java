@@ -14,6 +14,8 @@ import javax.swing.JWindow;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import com.monopoly.models.Dices;
+
 /**
  * 
  * @author BritzJ
@@ -70,31 +72,14 @@ public class DiceViewComponent extends JPanel implements IViewComponent {
 		add(panelTop, BorderLayout.CENTER);
 		
 	}
-	
-	public void roll() {
 		
-		
-		this.first = (int)(Math.random() * 6) + 1;
-		this.second = (int)(Math.random() * 6) + 1;
-		
-		
-	}
-	
-	public int getOutcome() {
-		return this.first + this.second;
-	}
-	
-	public boolean hasThrownDouble() {
-		return (this.first == this.second);
-	}
-	
 	@Override
 	public void updateView() {
 		//super.updateUI();
 		ImageIcon iconFirst = new ImageIcon(IMAGE_FOLDER + this.first + ".jpg"); 
 		//labelFirst.setIcon(iconFirst);
 		//labelSecond.setIcon(new ImageIcon(IMAGE_FOLDER + this.second + ".jpg"));
-		labelOutcome.setText(String.valueOf(getOutcome()));
+		labelOutcome.setText(String.valueOf(Dices.getInstance().getOutcome()));
 		panelTop.updateUI();
 	}
 	

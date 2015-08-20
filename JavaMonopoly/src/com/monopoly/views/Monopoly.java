@@ -6,12 +6,14 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.monopoly.AssetLoader;
+import com.monopoly.models.Dices;
 
-public class Monopoly extends JFrame implements ActionListener {
+public class Monopoly extends JFrame implements ActionListener, IViewComponent, Runnable {
 
 	/**
 	 * 
@@ -26,11 +28,12 @@ public class Monopoly extends JFrame implements ActionListener {
 	AssetLoader loader;
 	private BoardViewComponent board;
 	private DiceViewComponent dice;
-	private PropertyViewComponent property;
-	private PlayerViewComponent player;
+	private PropertyManagerViewComponent propertyManager;
+	private PlayerActionsViewComponent playerActions;
 	private boolean running = false;
 	
-	
+	JPanel panelRight = new JPanel();
+	BoxLayout layoutRight = new BoxLayout(panelRight, BoxLayout.PAGE_AXIS);
 	
 	
 	public Monopoly() {
@@ -45,19 +48,17 @@ public class Monopoly extends JFrame implements ActionListener {
 		
 		board = new BoardViewComponent();
 		dice = new DiceViewComponent();
-		property = new PropertyViewComponent();
-		player = new PlayerViewComponent();
+		propertyManager = new PropertyManagerViewComponent();
+		playerActions = new PlayerActionsViewComponent();
 		getContentPane().setLayout(new BorderLayout(2,2));
-		//getContentPane().add(board, BorderLayout.CENTER);
-		//getContentPane().add(dice, BorderLayout.LINE_END);
-		JPanel panelRight = new JPanel(new FlowLayout());
-		//panelRight.add(dice);
-		getContentPane().add(property, BorderLayout.CENTER);
-		getContentPane().add(panelRight, BorderLayout.LINE_END);
-		
-		//getContentPane().add(property, BorderLayout.LINE_END);
-		//getContentPane().add(player, BorderLayout.PAGE_END);
-		
+		getContentPane().add(board, BorderLayout.CENTER);
+		panelRight.setLayout(layoutRight);
+		panelRight.add(propertyManager);
+		panelRight.add(dice);
+		panelRight.setSize((int) (0.3*WINDOW_WIDTH), WINDOW_HEIGHT);
+		getContentPane().add(panelRight, BorderLayout.EAST);
+		getContentPane().add(playerActions, BorderLayout.PAGE_END);
+		Dices.getInstance().throwDices();
 		pack();
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		run();
@@ -71,19 +72,21 @@ public class Monopoly extends JFrame implements ActionListener {
 	/**
 	 *  Start the game loop
 	 */
-	private void run() {
+	@Override
+	public void run() {
 		long nextGameTick = System.nanoTime() / 1000000;
 		long sleepTime;
-		
+		running = true;
 		while(running) {
-			board.repaint();
-			
+		
 			nextGameTick += SKIP_TICKS;
 			sleepTime = nextGameTick - System.nanoTime() / 1000000;
 			
 			if(sleepTime > 0) {
 				try {
 					Thread.sleep(sleepTime);
+					updateView();
+					
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -95,6 +98,20 @@ public class Monopoly extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		
+	}
+
+	@Override
+	public void initView() {
+		
+		
+	}
+
+	@Override
+	public void updateView() {
+		board.updateView();
+		dice.updateView();
+		propertyManager.updateView();
+		playerActions.updateView();
 	}
 
 }

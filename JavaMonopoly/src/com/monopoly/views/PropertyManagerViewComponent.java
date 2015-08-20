@@ -28,7 +28,7 @@ import javax.swing.border.TitledBorder;
 import com.monopoly.AssetLoader;
 import com.monopoly.models.Property;
 
-public class PropertyViewComponent extends JPanel implements ActionListener, IViewComponent {
+public class PropertyManagerViewComponent extends JPanel implements ActionListener, IViewComponent {
 	
 	/**
 	 * 
@@ -53,7 +53,7 @@ public class PropertyViewComponent extends JPanel implements ActionListener, IVi
 	int selected = -1;
 	PropertyCardDialog viewer = new PropertyCardDialog();
 		
-	PropertyViewComponent() {
+	PropertyManagerViewComponent() {
 		initView();
 		setSize(500, 400);
 		

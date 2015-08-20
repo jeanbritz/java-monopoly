@@ -20,10 +20,11 @@ import com.monopoly.models.ChanceCard;
 import com.monopoly.models.Property;
 /**
  * 
- * @author BritzJ
+ * @author Jean Britz
  * @version 1.0
  * @since 1.0
  */
+
 public class AssetLoader {
 
 	static Connection conn;
@@ -34,8 +35,8 @@ public class AssetLoader {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Opens the DB connection to the MS Access database
+	 * @return Connection object
 	 */
 	private static Connection getConnection() {
 		try {
@@ -53,7 +54,7 @@ public class AssetLoader {
 	}
 	
 	/**
-	 * 
+	 * Close the DB connection
 	 */
 	private static void closeConnection() {
 		if(conn != null) {
@@ -66,6 +67,10 @@ public class AssetLoader {
 			}
 		}
 	}
+	
+	/**
+	 * Helper function of displaying a dialog with a message
+	 */
 	public static void showMessage(String text) {
 		JOptionPane.showMessageDialog(null, text);
 	}
@@ -144,8 +149,6 @@ public class AssetLoader {
 			e.printStackTrace();
 		}
 		closeConnection();
-		
-		
 		return result;
 		
 	}
@@ -158,27 +161,28 @@ public class AssetLoader {
 		File folder = new File(ASSET_FOLDER);
 		File list[] = folder.listFiles(new ImageFileFilter());
 		for (int i = 0; i < list.length; i++) {
-			if(list[i].getName().contains(resource.toLowerCase()))
+			if(list[i].getName().contains(resource.toLowerCase())) {
 				try {
 					return ImageIO.read(list[i]);
 				} catch (IOException e) {
 					e.printStackTrace();
+				}
 			}
 		}
 		return null;
 	}
-		
-	public static class ImageFileFilter implements FileFilter
-	{
-	  private final String[] allowedfileExt = 
+	/**
+	 * 
+	 * @author BritzJ
+	 *
+	 */
+	public static class ImageFileFilter implements FileFilter {
+	  private static final String[] allowedfileExt = 
 	    new String[] {"jpg", "png", "gif"};
 	 
-	  public boolean accept(File file)
-	  {
-	    for (String extension : allowedfileExt)
-	    {
-	      if (file.getName().toLowerCase().endsWith(extension))
-	      {
+	  public boolean accept(File file) {
+	    for (String extension : allowedfileExt) {
+	      if (file.getName().toLowerCase().endsWith(extension)) {
 	        return true;
 	      }
 	    }
