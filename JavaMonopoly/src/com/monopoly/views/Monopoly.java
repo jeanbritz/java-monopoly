@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import com.monopoly.AssetLoader;
 import com.monopoly.models.Dices;
+import com.monopoly.views.PlayerActionsViewComponent.IPlayerActionEvents;
 
 public class Monopoly extends JFrame implements ActionListener, IViewComponent, Runnable {
 
@@ -50,6 +51,37 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 		dice = new DiceViewComponent();
 		propertyManager = new PropertyManagerViewComponent();
 		playerActions = new PlayerActionsViewComponent();
+		playerActions.setOnClickListener(new IPlayerActionEvents () {
+
+			@Override
+			public void onRollClick() {
+				System.out.println("Roll");
+				Dices.getInstance().throwDices();
+				if(Dices.getInstance().hasThrownDouble()) {
+					System.out.println("You have thrown a double!!");
+				}
+			}
+
+			@Override
+			public void onEndTurnClick() {
+				System.out.println("End Turn clicked");
+				
+			}
+
+			@Override
+			public void onBuyClick() {
+				System.out.println("Buy clicked");
+				
+				
+			}
+
+			@Override
+			public void onCheckRentClick() {
+				System.out.println("Check rent clicked");
+				
+			}
+			
+		});
 		getContentPane().setLayout(new BorderLayout(2,2));
 		getContentPane().add(board, BorderLayout.CENTER);
 		panelRight.setLayout(layoutRight);
@@ -62,6 +94,8 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 		pack();
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		run();
+		
+		
 		
 	}
 

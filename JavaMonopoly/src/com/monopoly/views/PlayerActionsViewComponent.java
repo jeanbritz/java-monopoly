@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class PlayerActionsViewComponent extends JPanel implements ActionListener, IViewComponent {
+public class PlayerActionsViewComponent extends JPanel implements IViewComponent {
 
 	/**
 	 * 
@@ -41,6 +41,9 @@ public class PlayerActionsViewComponent extends JPanel implements ActionListener
 	JButton buttonViewProperty = new JButton("View properties");
 	JButton buttonEndTurn = new JButton("End Turn");
 	JButton buttonCheckRent = new JButton("Check if someone owes me rent");
+	
+	private PlayerActionListener actionlistener = new PlayerActionListener();
+	private IPlayerActionEvents actionEvents;
 	
 	
 	public PlayerActionsViewComponent() {
@@ -69,19 +72,26 @@ public class PlayerActionsViewComponent extends JPanel implements ActionListener
 		panelTop.add(panelInfo, BorderLayout.WEST);
 		panelTop.add(panelActionButtons, BorderLayout.CENTER);
 		
-		buttonEndTurn.addActionListener(this);
-		buttonRoll.addActionListener(this);
-		buttonBuy.addActionListener(this);
-		buttonCheckRent.addActionListener(this);
+		buttonEndTurn.addActionListener(actionlistener);
+		buttonRoll.addActionListener(actionlistener);
+		buttonBuy.addActionListener(actionlistener);
+		buttonCheckRent.addActionListener(actionlistener);
 		add(panelTop);
-		
+		buttonEndTurn.addActionListener(actionlistener);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		
-	}
+	
+	
+	/**
+	 * 
+	 * @param actions
+	 */
+	public void setOnClickListener(IPlayerActionEvents actions) {
+		try {
+			actionEvents = (IPlayerActionEvents) actions;
+		} catch(ClassCastException e) {
+			e.printStackTrace();
+		}
+	}	
 
 	@Override
 	public void updateView() {
@@ -89,6 +99,49 @@ public class PlayerActionsViewComponent extends JPanel implements ActionListener
 		
 	}
 	
+	/**
+	 * Inner class to map each callback method to 'listen' 
+	 * for the correct {@link JButton} when the user clicks on
+	 * the button
+	 * 
+	 * @author BritzJ
+	 *
+	 */
+	private class PlayerActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			if(event.getSource() == buttonRoll) {
+				actionEvents.onRollClick();
+			}
+			if(event.getSource() == buttonEndTurn) {
+				actionEvents.onEndTurnClick();
+			}
+			if(event.getSource() == buttonBuy) {
+				actionEvents.onBuyClick();
+			}
+			if(event.getSource() == buttonCheckRent) {
+				actionEvents.onCheckRentClick();
+			}
+			
+		}
+		
+	}
 	
+	/**
+	 * Interface class which defines the callback methods
+	 * In this way the callback methods acts as an API and gives the
+	 * user the ability to defined the callback methods in the
+	 * class this view is declared in.
+	 * @author BritzJ
+	 *
+	 */
+	public  interface IPlayerActionEvents {
+		public void onRollClick();
+		public void onEndTurnClick();
+		public void onBuyClick();
+		public void onCheckRentClick();
+		
+	}
 	
 }
