@@ -1,5 +1,6 @@
 package com.monopoly.models;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
 
@@ -80,6 +81,16 @@ public class Property {
 	public void setRgb(String rgb) {
 		this.rgb = rgb;
 	}
+	
+	public Color getColour() {
+		if(getRgb() != null) {
+			String comp[] = getRgb().split("[,]");
+			return new Color(Integer.valueOf(comp[0]), 
+							 Integer.valueOf(comp[1]), 
+							 Integer.valueOf(comp[2]));
+		}
+		return null;
+	};
 	public Point getBoardLocation() {
 		return boardLocation;
 	}
