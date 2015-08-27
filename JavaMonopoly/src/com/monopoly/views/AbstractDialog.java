@@ -1,9 +1,9 @@
 
 package com.monopoly.views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,45 +12,67 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.monopoly.AssetLoader;
+
 /**
  * @author BritzJ
  *
  */
-public abstract class AbstractDialog extends JDialog implements ActionListener {
+public abstract class AbstractDialog extends JDialog implements ActionListener, IViewComponent {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Font fontHeader = new Font("Arial", 1, 25);
-	Font fontBody = new Font("Arial", 1, 17);
-	Font fontFooter = new Font("Arial", 1, 18);
-	
-	JPanel panelHeader = new JPanel (new FlowLayout());
-	JPanel panelBody = new JPanel(new FlowLayout());
-	JPanel panelFooter = new JPanel(new FlowLayout());
-	
-	JLabel labelHeader = new JLabel("Header");
-	JLabel labelBody = new JLabel("Body");
-	
-	JButton buttonClose = new JButton("Close");
-	
-	
-	
+	private JPanel panelHeader;
+	private JPanel panelBody;
+	private JPanel panelFooter;
+		
 	public AbstractDialog() {
 		super();
-		initUI();
+		panelHeader = new JPanel(new FlowLayout());
+		panelBody = new JPanel(new FlowLayout());
+		panelFooter = new JPanel(new FlowLayout());
+		
+		labelHeader = new JLabel("Header");
+		labelHeader.setFont(AssetLoader.loadFont("h2"));
+		labelHeader.setVerticalAlignment(JLabel.CENTER);
+		labelHeader.setHorizontalAlignment(JLabel.CENTER);
+		
+		labelBody = new JLabel("Body");
+		labelBody.setFont(AssetLoader.loadFont("body"));
+		buttonClose = new JButton("Close");
+		
+		getContentPane().setLayout(new BorderLayout(0,1));
+		initView();
+		getContentPane().add(panelHeader, BorderLayout.NORTH);
+		getContentPane().add(panelBody, BorderLayout.CENTER);
+		getContentPane().add(panelFooter, BorderLayout.SOUTH);
 		buttonClose.addActionListener(this);
+		
 		pack();
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
+	public JPanel getHeaderPanel() {
+		return this.panelHeader;
+	}
+	
+	public JPanel getBodyPanel() {
+		return this.panelBody;
+	}
+	
+	public JPanel getFooterPanel() {
+		return this.panelFooter;
+	}
+	
 	/**
 	 * 
 	 */
-	public abstract void initUI();
+	@Override
+	public abstract void initView();
 	
 	/**
 	 * 

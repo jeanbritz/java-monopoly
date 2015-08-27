@@ -1,5 +1,6 @@
 package com.monopoly;
 
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import com.monopoly.models.ChanceCard;
@@ -168,6 +170,26 @@ public class AssetLoader {
 					e.printStackTrace();
 				}
 			}
+		}
+		return null;
+	}
+	
+	public static ImageIcon loadImageIcon(String resource) {
+		return new ImageIcon (loadImage(resource));
+	}
+	
+	public static Font loadFont(String heading) {
+		if(heading.equalsIgnoreCase("h1")) {
+			return new Font ("Arial", Font.BOLD, 50);
+		} else if(heading.equalsIgnoreCase("h2")) {
+			return new Font("Arial", Font.BOLD, 25);
+		} else if(heading.equalsIgnoreCase("h3")) {
+			
+		} else if(heading.equalsIgnoreCase("body")) {
+			return new Font("Arial", Font.PLAIN, 12);
+		}
+		else if(heading.equalsIgnoreCase("li")) {
+			return new Font ("Arial", Font.PLAIN, 20);
 		}
 		return null;
 	}

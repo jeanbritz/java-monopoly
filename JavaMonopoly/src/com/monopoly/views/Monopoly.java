@@ -90,7 +90,6 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 		panelRight.setSize((int) (0.3*WINDOW_WIDTH), WINDOW_HEIGHT);
 		getContentPane().add(panelRight, BorderLayout.EAST);
 		getContentPane().add(playerActions, BorderLayout.PAGE_END);
-		Dices.getInstance().throwDices();
 		pack();
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		run();

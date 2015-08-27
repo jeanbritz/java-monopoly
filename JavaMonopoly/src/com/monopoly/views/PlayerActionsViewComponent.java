@@ -18,47 +18,52 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class PlayerActionsViewComponent extends JPanel implements IViewComponent {
+public class PlayerActionsViewComponent extends AbstractViewComponent {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Border border;
-	TitledBorder titledBorder;
-	
-	JPanel panelTop = new JPanel(new BorderLayout (1,1));
-	JPanel panelInfo = new JPanel(new FlowLayout());
-	JPanel panelToken = new JPanel(new FlowLayout());
-	JPanel panelActionButtons = new JPanel(new FlowLayout());
+		
+	JPanel panelInfo;
+	JPanel panelToken;
+	JPanel panelActionButtons;
 	
 	JLabel labelMoney;
 	JLabel labelJail;
 	JLabel labelToken;
 	
-	JButton buttonBuy = new JButton("Make offer"); 
-	JButton buttonRoll = new JButton("Roll the dice");
-	JButton buttonViewProperty = new JButton("View properties");
-	JButton buttonEndTurn = new JButton("End Turn");
-	JButton buttonCheckRent = new JButton("Check if someone owes me rent");
+	JButton buttonBuy; 
+	JButton buttonRoll;
+	JButton buttonViewProperty;
+	JButton buttonEndTurn;
+	JButton buttonCheckRent;
 	
-	private PlayerActionListener actionlistener = new PlayerActionListener();
+	private PlayerActionListener actionlistener;
 	private IPlayerActionEvents actionEvents;
 	
 	
 	public PlayerActionsViewComponent() {
-		initView();
+		super("Player Actions");
+		
 	}
 	
 	@Override
 	public void initView() {
 		setBounds(50, 660, 950, 150);
-		
-		labelMoney = new JLabel("None");
+		setBorderTitle("Actions");
+		actionlistener = new PlayerActionListener();
+		panelInfo = new JPanel(new FlowLayout());
+		panelToken = new JPanel(new FlowLayout());
+		panelActionButtons = new JPanel(new FlowLayout());
+		labelMoney = new JLabel("2000");
 		labelJail = new JLabel("None");
 		labelToken = new JLabel("None");
-		border = BorderFactory.createMatteBorder(5, 5, 5, 5, new Color (184, 0, 0));
-		titledBorder = new TitledBorder(border, "Pending", 1, 1, new Font("Arial", 1, 18), Color.black);
+		buttonBuy = new JButton("Make offer");
+		buttonRoll = new JButton("Roll the dice");
+		buttonViewProperty = new JButton("View properties");
+		buttonEndTurn = new JButton("End Turn");
+		buttonCheckRent = new JButton("Check if someone owes me rent");
 		panelActionButtons.add(buttonBuy);
 		panelActionButtons.add(buttonRoll);
 		panelActionButtons.add(buttonEndTurn);
@@ -76,8 +81,9 @@ public class PlayerActionsViewComponent extends JPanel implements IViewComponent
 		buttonRoll.addActionListener(actionlistener);
 		buttonBuy.addActionListener(actionlistener);
 		buttonCheckRent.addActionListener(actionlistener);
-		add(panelTop);
 		buttonEndTurn.addActionListener(actionlistener);
+		add(panelTop);
+		
 	}
 	
 	

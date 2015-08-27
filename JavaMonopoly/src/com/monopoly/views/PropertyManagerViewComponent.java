@@ -28,66 +28,59 @@ import javax.swing.border.TitledBorder;
 import com.monopoly.AssetLoader;
 import com.monopoly.models.Property;
 
-public class PropertyManagerViewComponent extends JPanel implements ActionListener, IViewComponent {
+/**
+ * 
+ * @author BritzJ
+ *
+ */
+public class PropertyManagerViewComponent extends AbstractViewComponent implements ActionListener {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	JTabbedPane tabbedPane = new JTabbedPane();
-	JPanel panelAll = new JPanel(new BorderLayout());
-	JPanel panelOwn = new JPanel(new BorderLayout());
-	JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JTabbedPane tabbedPane;
+	JPanel panelButtons;
 	
-	JList<Property> listAll = new JList<Property>();
-	JList<Property> listOwn = new JList<Property>();
+	JList<Property> listAll;
+	JList<Property> listOwn;
 	
-	JScrollPane scrollAll = new JScrollPane(listAll);
-	JScrollPane scrollOwn = new JScrollPane(listOwn);
+	JScrollPane scrollAll;
+	JScrollPane scrollOwn;
 		
-	JButton btnView = new JButton("View");
+	JButton buttonView;
 		
-	Font listFont = new Font ("Arial", 0, 20);
-	
 	int selected = -1;
 	PropertyCardDialog viewer = new PropertyCardDialog();
 		
 	PropertyManagerViewComponent() {
-		initView();
+		super("Property Manager");
+		
 		setSize(500, 400);
 		
 	}
-		
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		if(event.getSource() == btnView) {
-			
-		}
-	}
-
+	
 	@Override
 	public void initView() {
-		setLayout(new BorderLayout());
+		listAll = new JList<Property>();
 		listAll.setListData(AssetLoader.getPropertyCards());
-		
-		
-		Border border = BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(184,0,0));
-		TitledBorder titledBorder = new TitledBorder (border, "Property Manager", 1, 1, new Font("Arial", 1, 15), Color.black);
-		setBorder(titledBorder);
-		
 		listAll.setCellRenderer(new PropertyListCell());
-		
+		scrollAll = new JScrollPane(listAll);
+		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("All", scrollAll);
+		buttonView = new JButton("View");
+		panelButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		panelButtons.add(buttonView);
 		
-		panelButtons.add(btnView);
+		panelTop.add(tabbedPane, BorderLayout.CENTER);
+		panelTop.add(panelButtons, BorderLayout.SOUTH);
 		
-		add(tabbedPane, BorderLayout.CENTER);
-		add(panelButtons, BorderLayout.SOUTH);
+		buttonView.addActionListener(this);
+		buttonView.setEnabled(false);
 		
 		scrollAll.revalidate();
 		scrollAll.repaint();
-		btnView.addActionListener(this);
 		
 	}
 
@@ -96,34 +89,44 @@ public class PropertyManagerViewComponent extends JPanel implements ActionListen
 				
 	}
 	
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if(event.getSource() == buttonView) {
+			if(listAll.getSelectedValue() != null) {
+				viewer.setData(listAll.getSelectedValue());
+				viewer.setVisible(true);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @author BritzJ
+	 *
+	 */
 	class PropertyListCell extends JLabel implements ListCellRenderer<Property> {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		public final ImageIcon TRAIN_ICON = new ImageIcon(AssetLoader.loadImage("train"));
-		public final ImageIcon PROPERTY_ICON = new ImageIcon (AssetLoader.loadImage("property"));
-	    public final ImageIcon ELEC_ICON = new ImageIcon (AssetLoader.loadImage("electricity"));
-	    public final ImageIcon WATER_ICON = new ImageIcon (AssetLoader.loadImage("waterboard"));
-	    public final ImageIcon HOUSE_ICON = new ImageIcon (AssetLoader.loadImage("house"));
-		
-		
+				
 		@Override
 		public Component getListCellRendererComponent(
 				JList<? extends Property> list, Property property, int index,
 				boolean isSelected, boolean cellHasFocus) {
 			if(property != null) {
 				if(property.getType().equals("Station")) {
-					setIcon(TRAIN_ICON);
+					setIcon(AssetLoader.loadImageIcon("train"));
 				} else if (property.getName().equals("Water")) {
-					setIcon(WATER_ICON);
+					setIcon(AssetLoader.loadImageIcon("waterboard"));
 				} else if (property.getName().equals("Electricity")) {
-					setIcon(ELEC_ICON);
+					setIcon(AssetLoader.loadImageIcon("electricity"));
 				} else {
 					// Most probably a Street, Avenue, etc...
-					setIcon(PROPERTY_ICON);
+					setIcon(AssetLoader.loadImageIcon("property"));
 				}
+				buttonView.setEnabled(true);
 				setText(property.getName() + " " + property.getType());
 			}
 			if(isSelected) {

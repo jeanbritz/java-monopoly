@@ -1,13 +1,13 @@
 package com.monopoly.views;
 
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import com.monopoly.models.ChanceCard;
+import com.monopoly.models.Property;
 
 public class PropertyCardDialog extends AbstractDialog {
 
@@ -24,16 +24,19 @@ public class PropertyCardDialog extends AbstractDialog {
 	
 	JLabel labelHouseCost = new JLabel("Cost of house");
 	
+	
+	
 	public PropertyCardDialog() {
 		super();
 		
 		setTitle("Monopoly");
 		setBounds(70, 70, 270, 300);
 		
+		
 	}
 	
-	public void setData(ChanceCard propertyCard) {
-		
+	public void setData(Property property) {
+		labelBody.setText(property.getName() + " " + property.getType());
 	}
 	
 	@Override
@@ -43,19 +46,18 @@ public class PropertyCardDialog extends AbstractDialog {
 	}
 
 	@Override
-	public void initUI() {
-		getContentPane().setLayout(new BorderLayout(0,1));
-		getContentPane().add(panelHeader, BorderLayout.NORTH);
-		getContentPane().add(panelBody, BorderLayout.CENTER);
-		getContentPane().add(panelFooter, BorderLayout.SOUTH);
-		
-		buttonClose.addActionListener(this);
-		labelHeader.setFont(fontHeader);
-		labelHeader.setVerticalAlignment(JLabel.CENTER);
-		labelHeader.setHorizontalAlignment(JLabel.CENTER);
+	public void initView() {
+		getHeaderPanel().add(labelHeader);
+		getBodyPanel().add(labelBody);
+		getFooterPanel().add(buttonClose);
 		
 		
 		
+	}
+
+	@Override
+	public void updateView() {
+				
 	}
 
 }
