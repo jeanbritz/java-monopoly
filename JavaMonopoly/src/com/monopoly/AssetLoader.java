@@ -8,6 +8,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 
 import com.monopoly.models.ChanceCard;
 import com.monopoly.models.Property;
+import com.monopoly.models.Property.Tariff;
 /**
  * 
  * @author Jean Britz
@@ -64,7 +66,7 @@ public class AssetLoader {
 				conn.close();
 				conn = null;
 			} catch (SQLException e) {
-				showMessage(e.getMessage());
+				showErrorMessage(e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -73,8 +75,8 @@ public class AssetLoader {
 	/**
 	 * Helper function of displaying a dialog with a message
 	 */
-	public static void showMessage(String text) {
-		JOptionPane.showMessageDialog(null, text);
+	public static void showErrorMessage(String text) {
+		JOptionPane.showMessageDialog(null, text, "Monopoly", JOptionPane.WARNING_MESSAGE);
 	}
 	
 	/**
@@ -100,14 +102,14 @@ public class AssetLoader {
 				result.add(rec);
 			}
 		} catch (SQLException e) {
-			showMessage(e.getMessage());
+			showErrorMessage(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			closeConnection();
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				showMessage(e.getMessage());
+				showErrorMessage(e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -122,35 +124,54 @@ public class AssetLoader {
 	public static Vector<Property> getPropertyCards() {
 		conn = getConnection();
 		String query = "select * from Properties";
+		String tariffQuery = "select * from Tariffs where PropId = ?";
 		Vector<Property> result = new Vector<Property>();
 		String mortage = null;
 		Property rec = null;
-		ResultSet rs = null;
+		ResultSet rsProperty = null;
+		ResultSet rsTariff = null;
+		Statement stmt = null;
+		PreparedStatement prepStmt = null;
 		try {
-			Statement stmt = conn.createStatement();
-			rs = stmt.executeQuery(query);
-			while(rs.next()) {
-				mortage = rs.getString(Property.P_MORTAGE);
+			stmt = conn.createStatement();
+			rsProperty = stmt.executeQuery(query);
+			while(rsProperty.next()) {
+				mortage = rsProperty.getString(Property.P_MORTAGE);
 				if(mortage != null) {
 					rec = new Property();
-					rec.setId(rs.getInt(Property.P_ID));
-					rec.setName(rs.getString(Property.P_NAME));
-					rec.setCost(rs.getInt(Property.P_COST));
-					rec.setType(rs.getString(Property.P_TYPE));
-					rec.setHouseCost(rs.getInt(Property.P_HOUSE_COST));
+					rec.setId(rsProperty.getInt(Property.P_ID));
+					rec.setName(rsProperty.getString(Property.P_NAME));
+					rec.setCost(rsProperty.getInt(Property.P_COST));
+					rec.setType(rsProperty.getString(Property.P_TYPE));
+					rec.setHouseCost(rsProperty.getInt(Property.P_HOUSE_COST));
 					rec.setMortage(mortage);
-					rec.setRgb(rs.getString(Property.P_RGB_COLOUR));
-					int x = rs.getInt(Property.P_BOARD_POS_X);
-					int y = rs.getInt(Property.P_BOARD_POS_Y);
+					rec.setRgb(rsProperty.getString(Property.P_RGB_COLOUR));
+					int x = rsProperty.getInt(Property.P_BOARD_POS_X);
+					int y = rsProperty.getInt(Property.P_BOARD_POS_Y);
 					rec.setBoardLocation(new Point(x, y));
+					prepStmt = conn.prepareStatement(tariffQuery);
+					prepStmt.setInt(1, rec.getId());
+					rsTariff = prepStmt.executeQuery();
+					while(rsTariff.next()) {
+						rec.addTariff(rsTariff.getInt(Tariff.P_T_CODE_COL_NAME),
+									  rsTariff.getInt(Tariff.P_T_COST_COL_NAME));
+					}
 					result.add(rec);
 				}
 			}
 		} catch (SQLException e) {
-			showMessage(e.getMessage());
+			showErrorMessage(e.getMessage());
 			e.printStackTrace();
+		} finally {
+			closeConnection();
+			try {
+				stmt.close();
+				prepStmt.close();
+			} catch (SQLException e) {
+				showErrorMessage(e.getMessage());
+				e.printStackTrace();
+			}
 		}
-		closeConnection();
 		return result;
 		
 	}

@@ -9,7 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-public abstract class AbstractViewComponent extends JPanel implements IViewComponent {
+public abstract class AbstractViewComponent extends JPanel 
+											implements IViewComponent {
 
 	/**
 	 * 

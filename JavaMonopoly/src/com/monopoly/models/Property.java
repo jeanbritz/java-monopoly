@@ -2,7 +2,11 @@ package com.monopoly.models;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import com.monopoly.controllers.Player;
 
@@ -28,9 +32,10 @@ public class Property {
 	private String rgb;
 	private Point boardLocation;
 	private List<Tariff> tariffs;
-		
+	private static TableModel tableModelTariff;
+	
 	public Property() {
-		
+		tariffs = new ArrayList<Tariff>();
 	}
 
 	public int getId() {
@@ -100,29 +105,80 @@ public class Property {
 	public List<Tariff> getTariffs() {
 		return tariffs;
 	}
-	public void setTariffs(List<Tariff> tariffs) {
-		this.tariffs = tariffs;
+	public void addTariff(int code, int cost) {
+		this.tariffs.add(new Tariff(code, cost));
 	}
+	
+	public TableModel getTariffTableModel() {
+					
+			tableModelTariff = new AbstractTableModel() {
+				 
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public int getRowCount() {
+					return getTariffs().size();
+				}
+
+				@Override
+				public int getColumnCount() {
+					return Tariff.COLUMN_COUNT;
+				}
+
+				@Override
+				public Object getValueAt(int rowIndex, int columnIndex) {
+					Tariff t = getTariffs().get(rowIndex);
+					String prefix = "";
+					if(getType().equals("Street")) {
+						prefix = "house";
+					}
+					if(columnIndex == Tariff.P_T_CODE_COL_IDX) {
+						if(t.getCode() > 0) {
+							return "Rent + " + t.getCode() + " " + prefix;
+						} else {
+							return "Rent";
+						}
+					} 
+					else if (columnIndex == Tariff.P_T_COST_COL_IDX) {
+						return t.getCost();
+					}
+					return null;
+				}
+				
+			};
+		
+		return tableModelTariff;
+	}
+	
 	
 	public class Tariff {
 		
-		private String code;
-		private String cost;
+		public final static String P_T_CODE_COL_NAME = "Code";
+		public final static String P_T_COST_COL_NAME = "Cost";
+		public final static int P_T_CODE_COL_IDX = 0;
+		public final static int P_T_COST_COL_IDX = 1;
+		public final static int COLUMN_COUNT = 2;
+				
+		private int code;
+		private int cost;
 		
-		Tariff(String code, String cost) {
+		Tariff(int code, int cost) {
 			this.code = code;
 			this.cost = cost;
 		}
-		public String getCode() {
+		public int getCode() {
 			return code;
 		}
-		public void setCode(String code) {
+		public void setCode(int code) {
 			this.code = code;
 		}
-		public String getCost() {
+		public int getCost() {
 			return cost;
 		}
-		public void setCost(String cost) {
+		public void setCost(int cost) {
 			this.cost = cost;
 		}
 		
@@ -130,8 +186,7 @@ public class Property {
 		public String toString() {
 			return "Tariff [ code=" + code + ",cost="+ cost + " ]";
 		}
-		
-		
+				
 	}
 
 }

@@ -24,6 +24,8 @@ import javax.swing.JWindow;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.monopoly.AssetLoader;
 import com.monopoly.models.Property;
@@ -33,7 +35,8 @@ import com.monopoly.models.Property;
  * @author BritzJ
  *
  */
-public class PropertyManagerViewComponent extends AbstractViewComponent implements ActionListener {
+public class PropertyManagerViewComponent extends AbstractViewComponent 
+										  implements ActionListener, ListSelectionListener {
 	
 	/**
 	 * 
@@ -69,6 +72,7 @@ public class PropertyManagerViewComponent extends AbstractViewComponent implemen
 		scrollAll = new JScrollPane(listAll);
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("All", scrollAll);
+		
 		buttonView = new JButton("View");
 		panelButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelButtons.add(buttonView);
@@ -99,6 +103,21 @@ public class PropertyManagerViewComponent extends AbstractViewComponent implemen
 		}
 	}
 	
+	@Override
+	public void valueChanged(ListSelectionEvent event) {
+		if(event.getValueIsAdjusting()) {
+			
+			if(event.getSource() == listAll) {
+				
+			}
+			if(event.getSource() == listOwn) {
+				
+			}
+			
+		}
+		
+	}
+	
 	/**
 	 * 
 	 * @author BritzJ
@@ -110,7 +129,14 @@ public class PropertyManagerViewComponent extends AbstractViewComponent implemen
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-				
+		
+		public PropertyListCell() {
+			super();
+			setOpaque(true);
+		}
+
+
+
 		@Override
 		public Component getListCellRendererComponent(
 				JList<? extends Property> list, Property property, int index,
@@ -130,11 +156,17 @@ public class PropertyManagerViewComponent extends AbstractViewComponent implemen
 				setText(property.getName() + " " + property.getType());
 			}
 			if(isSelected) {
-							
+				setBackground(Color.BLACK);
+				setForeground(Color.WHITE);
+			} else {
+				setBackground(Color.WHITE);
+				setForeground(Color.BLACK);
+			}
+			if(cellHasFocus) {
+				setBackground(Color.GREEN);
 			}
 			return this;
 		}
 		
 	}
-
 }

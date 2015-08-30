@@ -8,9 +8,13 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import com.monopoly.AssetLoader;
 import com.monopoly.models.Property;
+import com.monopoly.models.Property.Tariff;
 
 public class PropertyCardDialog extends AbstractDialog<Object> {
 
@@ -29,15 +33,18 @@ public class PropertyCardDialog extends AbstractDialog<Object> {
 	
 	JLabel labelHeader;
 	JLabel labelBody;
+	JTable tableTariffs;
 	JButton buttonClose;
 	
+	Property property;
 	
 	public PropertyCardDialog() {
 		super();
 		
 		setTitle("Monopoly");
 		setBounds(70, 70, 270, 300);
-		
+		getBodyPanel().setBackground(Color.WHITE);
+		getFooterPanel().setBackground(Color.WHITE);
 		
 		
 	}
@@ -48,10 +55,12 @@ public class PropertyCardDialog extends AbstractDialog<Object> {
 
 	@Override
 	public void setData(Object data) {
-		Property prop = (Property)data;
-		labelHeader.setText(prop.getName() + " " + prop.getType());
-		labelHeader.setBackground(prop.getColour());
-		labelBody.setText(prop.getHouseCost()+" ZAR");
+		property = (Property)data;
+		String body = "";
+		labelHeader.setText(property.getName() + " " + property.getType());
+		getHeaderPanel().setBackground(property.getColour());
+		labelBody.setText("R " + property.getHouseCost());
+		tableTariffs.setModel(property.getTariffTableModel());
 		
 	}
 
@@ -59,17 +68,23 @@ public class PropertyCardDialog extends AbstractDialog<Object> {
 	@Override
 	public void initView() {
 		labelHeader = new JLabel("Header");
-		labelHeader.setBackground(Color.white);
 		labelHeader.setFont(AssetLoader.loadFont("h2"));
 		labelHeader.setVerticalAlignment(JLabel.CENTER);
 		labelHeader.setHorizontalAlignment(JLabel.CENTER);
 		
 		labelBody = new JLabel("Body");
-		labelBody.setFont(AssetLoader.loadFont("h2"));
+		labelBody.setFont(AssetLoader.loadFont("body"));
+		labelBody.setVerticalAlignment(JLabel.CENTER);
 		buttonClose = new JButton("Close");
-				
+		
+		tableTariffs = new JTable();
+		tableTariffs.setGridColor(Color.white);
+		
 		getHeaderPanel().add(labelHeader);
-		getBodyPanel().add(labelBody);
+		
+		//getBodyPanel().add(labelBody);
+		getBodyPanel().add(tableTariffs);
+		
 		getFooterPanel().add(buttonClose);
 		
 		buttonClose.addActionListener(this);
