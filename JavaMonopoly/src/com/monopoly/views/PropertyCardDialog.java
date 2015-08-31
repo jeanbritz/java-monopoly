@@ -9,14 +9,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
-
 import com.monopoly.AssetLoader;
 import com.monopoly.models.Property;
-import com.monopoly.models.Property.Tariff;
 
-public class PropertyCardDialog extends AbstractDialog<Object> {
+public class PropertyCardDialog extends AbstractDialog<Property> {
 
 	
 	/**
@@ -54,8 +50,8 @@ public class PropertyCardDialog extends AbstractDialog<Object> {
 	}
 
 	@Override
-	public void setData(Object data) {
-		property = (Property)data;
+	public void setData(Property data) {
+		property = data;
 		String body = "";
 		labelHeader.setText(property.getName() + " " + property.getType());
 		getHeaderPanel().setBackground(property.getColour());

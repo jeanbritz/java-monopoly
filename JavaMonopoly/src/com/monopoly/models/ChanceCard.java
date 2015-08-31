@@ -1,5 +1,10 @@
 package com.monopoly.models;
 
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+
+
+
 public class ChanceCard {
 	
 	public static String CC_ID = "CardId";
@@ -14,7 +19,7 @@ public class ChanceCard {
 	private String consequence;
 	private String message;
 	private boolean inUse = false;
-				
+		
 	public ChanceCard() {
 		
 	}

@@ -2,15 +2,20 @@ package com.monopoly.views;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.monopoly.AssetLoader;
+import com.monopoly.controllers.Player;
+import com.monopoly.controllers.Referee;
 import com.monopoly.models.Dices;
 import com.monopoly.views.PlayerActionsViewComponent.IPlayerActionEvents;
 
@@ -20,8 +25,7 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int FRAMES_PER_SECOND = 25;
-	private static final int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
+	
 	
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
@@ -32,56 +36,27 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 	private PropertyManagerViewComponent propertyManager;
 	private PlayerActionsViewComponent playerActions;
 	private boolean running = false;
-	
+	ArrayList<Player> players = new ArrayList<Player>();
 	JPanel panelRight = new JPanel();
 	BoxLayout layoutRight = new BoxLayout(panelRight, BoxLayout.PAGE_AXIS);
+	Referee ref;
 	
-	
-	public Monopoly() {
+	public Monopoly(Referee ref) {
 		
 		// Initialize the frame
 		setTitle("Monopoly");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		setLocationRelativeTo(null);
+		this.ref = ref;
 		//setResizable(false);
 		setVisible(true);
-		
-		board = new BoardViewComponent();
+		//ref.getPlayers()
+		//board = new BoardViewComponent();
 		dice = new DiceViewComponent();
 		propertyManager = new PropertyManagerViewComponent();
 		playerActions = new PlayerActionsViewComponent();
-		playerActions.setOnClickListener(new IPlayerActionEvents () {
-
-			@Override
-			public void onRollClick() {
-				System.out.println("Roll");
-				Dices.getInstance().throwDices();
-				if(Dices.getInstance().hasThrownDouble()) {
-					System.out.println("You have thrown a double!!");
-				}
-			}
-
-			@Override
-			public void onEndTurnClick() {
-				System.out.println("End Turn clicked");
-				
-			}
-
-			@Override
-			public void onBuyClick() {
-				System.out.println("Buy clicked");
-				
-				
-			}
-
-			@Override
-			public void onCheckRentClick() {
-				System.out.println("Check rent clicked");
-				
-			}
-			
-		});
+		playerActions.setOnClickListener(new PlayerActions());
 		getContentPane().setLayout(new BorderLayout(2,2));
 		getContentPane().add(board, BorderLayout.CENTER);
 		panelRight.setLayout(layoutRight);
@@ -107,24 +82,7 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 	 */
 	@Override
 	public void run() {
-		long nextGameTick = System.nanoTime() / 1000000;
-		long sleepTime;
-		running = true;
-		while(running) {
 		
-			nextGameTick += SKIP_TICKS;
-			sleepTime = nextGameTick - System.nanoTime() / 1000000;
-			
-			if(sleepTime > 0) {
-				try {
-					Thread.sleep(sleepTime);
-					updateView();
-					
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 	
 	@Override
@@ -141,10 +99,59 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 
 	@Override
 	public void updateView() {
-		board.updateView();
 		dice.updateView();
 		propertyManager.updateView();
 		playerActions.updateView();
 	}
+	
+	public BoardViewComponent getBoardView() {
+		return this.board;
+	}
+	
+	public DiceViewComponent getDiceView() {
+		return this.dice;
+	}
+	
+	public PlayerActionsViewComponent getPlayerActionsView() {
+		return playerActions;
+	}
+	
+	@Override
+	public void update(Graphics g) {
+		super.update(g);
+		
+	}
+	
+	public class PlayerActions implements IPlayerActionEvents {
 
+		@Override
+		public void onRollClick() {
+			System.out.println("Roll");
+			Dices.getInstance().throwDices();
+			if(Dices.getInstance().hasThrownDouble()) {
+				System.out.println("You have thrown a double!!");
+			}
+		}
+
+		@Override
+		public void onEndTurnClick() {
+			ref.getCurrentPlayer().nextRound();
+			System.out.println(ref.getCurrentPlayer().getName() + " has end its turn");
+			
+		}
+
+		@Override
+		public void onBuyClick() {
+			System.out.println("Buy clicked");
+			
+			
+		}
+
+		@Override
+		public void onCheckRentClick() {
+			System.out.println("Check rent clicked");
+			
+		}
+		
+	}
 }

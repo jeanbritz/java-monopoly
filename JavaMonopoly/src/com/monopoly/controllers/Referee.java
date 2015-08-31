@@ -1,33 +1,84 @@
 package com.monopoly.controllers;
 
-import java.util.ArrayList;
-
-import com.monopoly.views.Monopoly;
+import com.monopoly.AssetLoader;
 
 public class Referee implements Runnable {
 
-	ArrayList<Player> players = new ArrayList<Player>();
+	private static final int FRAMES_PER_SECOND = 25;
+	private static final int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
+	public final int INITIAL_BANK_BALANCE = 2000;
+	public int currentRound = 1;
 	
-	public Referee(Monopoly monopoly) {
+	private Player currentPlayer = null;
+	private PlayerLinkedList players = null;
+	
+	
+	public Referee() {
+		players = new PlayerLinkedList();
 		Player p1 = new Player(this);
 		Player p2 = new Player(this);
 		p1.setId(1);
 		p2.setId(2);
 		p1.setName("Jean");
 		p2.setName("Paul");
+		p1.setToken(AssetLoader.loadImage("token1"));
+		p2.setToken(AssetLoader.loadImage("token2"));
 		
-		
+		p1.setBankBalance(INITIAL_BANK_BALANCE);
+		p1.setBankBalance(INITIAL_BANK_BALANCE);
+		players.add(p1);
+		players.add(p2);
+		System.out.println(players.toString());
 		
 		
 	}
 
-	
-	
+	/*public List<Player> getPlayers() {
+		return this.players;
+	}
+	*/
 	@Override
 	public void run() {
+		long nextGameTick = System.nanoTime() / 1000000;
+		long sleepTime;
+		boolean running = true;
+		int currentPlayerId = 0;
+		//currentPlayer = players.get(currentPlayerId);
+		while(running) {
 		
+			nextGameTick += SKIP_TICKS;
+			sleepTime = nextGameTick - System.nanoTime() / 1000000;
+			
+			if(sleepTime > 0) {
+				try {
+					Thread.sleep(sleepTime);
+					if(currentPlayer.getRound() < currentRound) {
+						// wait
+					} else {
+						// TODO: Should make a linked list of players or something to
+						// implement a more realistic model of handling each round
+						currentPlayerId++;
+						/*if(currentPlayerId >= players.size()) {
+							currentPlayerId = 0;
+						}*/
+					//	currentPlayer = players.get(currentPlayerId);
+					}
+					
+					
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
 	}
 	
+	public Player getCurrentPlayer() {
+		return this.currentPlayer;
+	}
+	
+	private void endRound() {
+		currentRound++;
+	}
 	
 }

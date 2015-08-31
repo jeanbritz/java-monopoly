@@ -8,8 +8,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import com.monopoly.controllers.Player;
-
 public class Property {
 	
 	public static String P_ID = "PropID";

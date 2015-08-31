@@ -165,8 +165,12 @@ public class AssetLoader {
 		} finally {
 			closeConnection();
 			try {
-				stmt.close();
-				prepStmt.close();
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(prepStmt != null) {
+					prepStmt.close();
+				}
 			} catch (SQLException e) {
 				showErrorMessage(e.getMessage());
 				e.printStackTrace();
@@ -194,11 +198,21 @@ public class AssetLoader {
 		}
 		return null;
 	}
-	
+	/**
+	 * 
+	 * @param resource
+	 * @return
+	 */
 	public static ImageIcon loadImageIcon(String resource) {
 		return new ImageIcon (loadImage(resource));
 	}
 	
+	
+	/**
+	 * 
+	 * @param heading
+	 * @return
+	 */
 	public static Font loadFont(String heading) {
 		if(heading.equalsIgnoreCase("h1")) {
 			return new Font ("Arial", Font.BOLD, 50);
