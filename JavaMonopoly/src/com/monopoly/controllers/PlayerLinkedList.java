@@ -51,8 +51,10 @@ public class PlayerLinkedList {
 	}
 	
 	public Player getNext() {
-		if(head.getNext() != null) {
-			return head.getNext().getPlayer();
+		Node currentNode = head.getNext();
+		if(currentNode != null) {
+			head = currentNode.next;
+			return currentNode.getPlayer();
 		} else {
 			return get(0);
 		}
