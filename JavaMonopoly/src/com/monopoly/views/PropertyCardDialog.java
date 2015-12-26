@@ -9,8 +9,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+
 import com.monopoly.AssetLoader;
-import com.monopoly.models.Property;
+import com.monopoly.models.persistent.Property;
+import com.monopoly.models.persistent.Tariff;
 
 public class PropertyCardDialog extends AbstractDialog<Property> {
 
@@ -52,11 +56,11 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 	@Override
 	public void setData(Property data) {
 		property = data;
-		String body = "";
-		labelHeader.setText(property.getName() + " " + property.getType());
+		
+		labelHeader.setText(property.getPName() + " " + property.getType());
 		getHeaderPanel().setBackground(property.getColour());
-		labelBody.setText("R " + property.getHouseCost());
-		tableTariffs.setModel(property.getTariffTableModel());
+		labelBody.setText("R " + property.getPHouseCost());
+		tableTariffs.setModel(new TariffTableModel());
 		
 	}
 
@@ -101,6 +105,30 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		if(event.getSource().equals(buttonClose)) {
 			onCloseClick();
 		}
+	}
+	
+	public class TariffTableModel extends AbstractTableModel {
+
+		@Override
+		public int getRowCount() {
+			
+			return 0;
+		}
+
+		@Override
+		public int getColumnCount() {
+			
+			return 0;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			
+			return null;
+		}
+		
+		
+	
 	}
 
 }

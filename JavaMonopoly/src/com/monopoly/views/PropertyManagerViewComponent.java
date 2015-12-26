@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -17,7 +19,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.monopoly.AssetLoader;
-import com.monopoly.models.Property;
+import com.monopoly.models.persistent.Property;
 
 /**
  * 
@@ -56,7 +58,11 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 	@Override
 	public void initView() {
 		listAll = new JList<Property>();
-		listAll.setListData(AssetLoader.getPropertyCards());
+		try {
+			listAll.setListData((Property[]) AssetLoader.getPropertyCards().toArray());
+		} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
+			e.printStackTrace();
+		}
 		listAll.setCellRenderer(new PropertyListCell());
 		scrollAll = new JScrollPane(listAll);
 		tabbedPane = new JTabbedPane();
@@ -133,16 +139,16 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 			if(property != null) {
 				if(property.getType().equals("Station")) {
 					setIcon(AssetLoader.loadImageIcon("train"));
-				} else if (property.getName().equals("Water")) {
+				} else if (property.getPName().equals("Water")) {
 					setIcon(AssetLoader.loadImageIcon("waterboard"));
-				} else if (property.getName().equals("Electricity")) {
+				} else if (property.getPName().equals("Electricity")) {
 					setIcon(AssetLoader.loadImageIcon("electricity"));
 				} else {
 					// Most probably a Street, Avenue, etc...
 					setIcon(AssetLoader.loadImageIcon("property"));
 				}
 				buttonView.setEnabled(true);
-				setText(property.getName() + " " + property.getType());
+				setText(property.getPName() + " " + property.getType());
 			}
 			if(isSelected) {
 				setBackground(Color.BLACK);

@@ -10,15 +10,15 @@ import javax.swing.table.TableModel;
 
 public class Property {
 	
-	public static String P_ID = "PropID";
-	public static String P_NAME = "PropName";
-	public static String P_COST = "CostForProp";
-	public static String P_TYPE = "PropType";
-	public static String P_HOUSE_COST = "CostOfHouse";
-	public static String P_MORTAGE = "MortageValue";
-	public static String P_RGB_COLOUR = "RGB";
-	public static String P_BOARD_POS_X = "PosX";
-	public static String P_BOARD_POS_Y = "PosY";
+	public static String P_ID = "P_ID";
+	public static String P_NAME = "P_NAME";
+	public static String P_COST = "P_COST";
+	public static String P_TYPE = "PT_ID";
+	public static String P_HOUSE_COST = "P_HOUSE_COST";
+	public static String P_MORTAGE = "P_MORTAGE_VAL";
+	public static String P_RGB_COLOUR = "P_RGB_COLOR";
+	public static String P_BOARD_POS_X = "P_POS_X";
+	public static String P_BOARD_POS_Y = "P_POS_Y";
 	
 	private int id;
 	private String name;

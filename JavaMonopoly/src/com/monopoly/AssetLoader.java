@@ -1,27 +1,26 @@
 package com.monopoly;
 
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.List;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import com.monopoly.models.ChanceCard;
-import com.monopoly.models.Property;
-import com.monopoly.models.Property.Tariff;
+import com.monopoly.models.db.PropertyDbModel;
+import com.monopoly.models.persistent.Property;
 /**
  * 
  * @author Jean Britz
@@ -32,8 +31,13 @@ import com.monopoly.models.Property.Tariff;
 public class AssetLoader {
 
 	static Connection conn;
+	
+	private static PropertyDbModel propertyModel;
+	
 	private static final String ASSET_FOLDER = System.getProperty("user.dir") + File.separatorChar +"assets";
-		
+	private static final String DB_NAME = "database.db"; 
+	private static final int DB_VERSION = 1;
+	
 	protected AssetLoader() {
 				
 	}
@@ -44,9 +48,9 @@ public class AssetLoader {
 	 */
 	private static Connection getConnection() {
 		try {
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			String db = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=";
-			db += ASSET_FOLDER + File.separatorChar + "data.mdb";
+			Class.forName("org.sqlite.JDBC");
+			String db = "jdbc:sqlite:";
+			db += ASSET_FOLDER + File.separatorChar + "database.db";
 			conn = DriverManager.getConnection(db, "", "");
 			
 		} catch (Exception e) {
@@ -117,11 +121,18 @@ public class AssetLoader {
 		
 	}
 	
+	public static List<Property> getPropertyCards() throws SQLException, ClassNotFoundException, NoSuchFieldException {
+		propertyModel = new PropertyDbModel(null);
+		List<Property> properties = propertyModel.getObjectModel(Property.class).getAll();
+		return properties;
+		
+	}
+	
 	/**
 	 * 
 	 * @return
 	 */
-	public static Vector<Property> getPropertyCards() {
+	/*public static Vector<Property> getPropertyCards() {
 		conn = getConnection();
 		String query = "select * from Properties";
 		String tariffQuery = "select * from Tariffs where PropId = ?";
@@ -178,7 +189,7 @@ public class AssetLoader {
 		}
 		return result;
 		
-	}
+	}*/
 	/**
 	 * 
 	 * @param resource
@@ -228,6 +239,15 @@ public class AssetLoader {
 		}
 		return null;
 	}
+	
+	public static String getDbName() {
+		return DB_NAME;
+	}
+	
+	public static int getDbVersion() {
+		return DB_VERSION;
+	}
+	
 	/**
 	 * 
 	 * @author BritzJ

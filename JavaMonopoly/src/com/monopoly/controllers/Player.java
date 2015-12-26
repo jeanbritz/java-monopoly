@@ -1,12 +1,13 @@
 package com.monopoly.controllers;
 
 import java.awt.Image;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
 import com.monopoly.AssetLoader;
-import com.monopoly.models.Property;
+import com.monopoly.models.persistent.Property;
 
 
 public class Player {
@@ -21,7 +22,12 @@ public class Player {
 	private int round;
 	
 	Player(Referee ref) {
-		propertyAt = AssetLoader.getPropertyCards().get(0);
+		try {
+			propertyAt = AssetLoader.getPropertyCards().get(0);
+		} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		bankBalance = ref.INITIAL_BANK_BALANCE;
 	}
 	
@@ -97,12 +103,12 @@ public class Player {
 		return this.round;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
-		return "Player [id=" + id + ", name=" + name + ", propertyAt=" + propertyAt.getId()
+		return "Player [id=" + id + ", name=" + name + ", propertyAt=" + propertyAt.getPId()
 				+ ", isInJail=" + isInJail + ", bankBalance=" + bankBalance
 				+ ", round=" + round + "]";
-	}
+	}*/
 	
 	
 	

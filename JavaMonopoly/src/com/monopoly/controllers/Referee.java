@@ -6,7 +6,7 @@ public class Referee implements Runnable {
 
 	private static final int FRAMES_PER_SECOND = 25;
 	private static final int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
-	public final int INITIAL_BANK_BALANCE = 2000;
+	public static final int INITIAL_BANK_BALANCE = 2000;
 	public int currentRound = 1;
 	
 	private Player currentPlayer = null;
