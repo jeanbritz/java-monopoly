@@ -11,10 +11,9 @@ public class Property {
 	
 	/** Database table fields **/
 	@PrimaryKey(autoIncrement = true)
-	private long PId;
-	@Nullable(value = false)
+	private int PId;
 	private String PName;
-	private PropertyType type;
+	private long PPtId;
 	private long PCost;
 	private long PHouseCost;
 	private long PMortageVal;
@@ -23,18 +22,19 @@ public class Property {
 	private int PPosY;
 	
 	/** Database foreign fields **/
-	private Collection<Tariff> tariffs;
+	private PropertyType type;
+	//private Collection<Tariff> tariffs;
 	
 	/** Auxilary fields **/
 	private Point location;
 	private Color color;
 		
 
-	public long getPId() {
+	public int getPId() {
 		return PId;
 	}
 
-	public void setPId(long pId) {
+	public void setPId(int pId) {
 		PId = pId;
 	}
 
@@ -45,7 +45,15 @@ public class Property {
 	public void setPName(String pName) {
 		PName = pName;
 	}
+	
+	public long getPtId() {
+		return PPtId;
+	}
 
+	public void setPtId(long pPtId) {
+		PPtId = pPtId;
+	}
+	
 	public PropertyType getType() {
 		return type;
 	}
@@ -54,6 +62,7 @@ public class Property {
 		this.type = type;
 	}
 
+	
 	public long getPCost() {
 		return PCost;
 	}
@@ -86,7 +95,7 @@ public class Property {
 		PRgbColor = pRgbColor;
 	}
 
-	public long getPPosX() {
+	public int getPPosX() {
 		return PPosX;
 	}
 
@@ -94,7 +103,7 @@ public class Property {
 		PPosX = pPosX;
 	}
 
-	public long getPPosY() {
+	public int getPPosY() {
 		return PPosY;
 	}
 
@@ -102,9 +111,13 @@ public class Property {
 		PPosY = pPosY;
 	}
 
+/*	public void setTariffs(Collection<Tariff> tariffs) {
+		this.tariffs = tariffs;
+	}
+
 	public Collection<Tariff> getTariffs() {
 		return tariffs;
-	}
+	}*/
 
 	public Color getColour() {
 		if(PRgbColor != null) {
@@ -124,11 +137,5 @@ public class Property {
 		}
 		return location;
 	}
-	public void setBoardLocation(Point location) {
-		this.location = location;
-	}
-		
-	
-	
-	
+
 }

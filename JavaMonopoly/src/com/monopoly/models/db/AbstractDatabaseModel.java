@@ -20,7 +20,7 @@ public abstract class AbstractDatabaseModel extends DatabaseModel<ResultSet, Has
 		super((Object[]) null);
 		
 	}
-
+		
 	@Override
 	public String getDatabaseName() {
 		return AssetLoader.getDbName();
@@ -32,12 +32,17 @@ public abstract class AbstractDatabaseModel extends DatabaseModel<ResultSet, Has
 	}
 
 	@Override
+	protected void onInsertDefaultValues() {
+		// Nothing to insert
+	}
+	
+	@Override
 	public ObjectModel<DatabaseInfo, ResultSet, HashMap<String, Object>> onCreateDatabaseInfoModel()
 			throws ClassNotFoundException, NoSuchFieldException {
 				return new JdbcObjectModel<DatabaseInfo>(this) {
 			};
 	}
-
+	
 	@Override
 	protected DatabaseDriverInterface<ResultSet, HashMap<String, Object>> onInitializeDatabaseDriverInterface(
 			Object... arg0) {

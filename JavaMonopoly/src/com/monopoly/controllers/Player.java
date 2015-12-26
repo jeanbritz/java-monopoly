@@ -2,6 +2,7 @@ package com.monopoly.controllers;
 
 import java.awt.Image;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -22,12 +23,8 @@ public class Player {
 	private int round;
 	
 	Player(Referee ref) {
-		try {
-			propertyAt = AssetLoader.getPropertyCards().get(0);
-		} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		List<Property> records = AssetLoader.getAllPropertyRecords();
+		//propertyAt = AssetLoader.getAllPropertyRecords().get(0);
 		bankBalance = ref.INITIAL_BANK_BALANCE;
 	}
 	

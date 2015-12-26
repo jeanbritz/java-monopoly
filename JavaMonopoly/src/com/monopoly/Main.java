@@ -7,15 +7,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		Referee ref = new Referee();
-		Monopoly m = new Monopoly(ref);
 		Thread refThread = new Thread(ref);
+		refThread.setName("The Referee");
 		refThread.start();
-		/*Thread mpThread = new Thread(m);
 		
-		mpThread.setName("Monopoly");
-		refThread.setName("Referee");
-		mpThread.start();
-		refThread.start();*/
 
 	}
 

@@ -9,22 +9,19 @@ import com.monopoly.models.persistent.Property;
 import com.monopoly.models.persistent.PropertyType;
 import com.monopoly.models.persistent.Tariff;
 
+import za.co.neilson.sqlite.orm.DatabaseInfo;
 import za.co.neilson.sqlite.orm.ObjectModel;
 import za.co.neilson.sqlite.orm.jdbc.JdbcObjectModel;
 
 
 public class PropertyDbModel extends AbstractDatabaseModel {
 
-	public PropertyDbModel(Object[] args) throws SQLException, ClassNotFoundException, NoSuchFieldException {
-		super(args);
+	public PropertyDbModel() throws SQLException, ClassNotFoundException, NoSuchFieldException {
+		super((Object[]) null);
 		
 	}
 
-	@Override
-	protected void onInsertDefaultValues() {
-		// Nothing to insert
-	}
-
+		
 	@Override
 	protected void onRegisterObjectModels(HashMap<Type, ObjectModel<?, ResultSet, HashMap<String, Object>>> arg0)
 			throws ClassNotFoundException, NoSuchFieldException {
@@ -44,8 +41,8 @@ public class PropertyDbModel extends AbstractDatabaseModel {
 		
 		// Tariff has a foreign key reference to Property and must therefore be added after
 		// Property.
-		objectModels.put(Tariff.class, new JdbcObjectModel<Tariff>(this) {
-		});
+		//objectModels.put(Tariff.class, new JdbcObjectModel<Tariff>(this) {
+		//});
 		
 	}
 

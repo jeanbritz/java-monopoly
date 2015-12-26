@@ -28,15 +28,11 @@ public class Referee implements Runnable {
 		p1.setBankBalance(INITIAL_BANK_BALANCE);
 		players.add(p1);
 		players.add(p2);
-		System.out.println(players.toString());
+		
 		
 		
 	}
-
-	/*public List<Player> getPlayers() {
-		return this.players;
-	}
-	*/
+	
 	@Override
 	public void run() {
 		long nextGameTick = System.nanoTime() / 1000000;
@@ -44,6 +40,7 @@ public class Referee implements Runnable {
 		boolean running = true;
 		int currentPlayerId = 0;
 		//currentPlayer = players.get(currentPlayerId);
+		currentPlayer = players.getNext();
 		while(running) {
 		
 			nextGameTick += SKIP_TICKS;

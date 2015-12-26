@@ -35,16 +35,18 @@ public class AssetLoader {
 	private static PropertyDbModel propertyModel;
 	
 	private static final String ASSET_FOLDER = System.getProperty("user.dir") + File.separatorChar +"assets";
-	private static final String DB_NAME = "database.db"; 
+	private static final String DB_PATH = ASSET_FOLDER + File.separatorChar + "database.db"; 
 	private static final int DB_VERSION = 1;
+	
+	private static List<Property> propertyRecords = null;
 	
 	protected AssetLoader() {
 				
 	}
 	
 	/**
-	 * Opens the DB connection to the MS Access database
-	 * @return Connection object
+	 * Opens the DB connection to the SQLite database
+	 * @return Valid Connection 
 	 */
 	private static Connection getConnection() {
 		try {
@@ -122,12 +124,30 @@ public class AssetLoader {
 	}
 	
 	public static List<Property> getPropertyCards() throws SQLException, ClassNotFoundException, NoSuchFieldException {
-		propertyModel = new PropertyDbModel(null);
+		propertyModel = new PropertyDbModel();
 		List<Property> properties = propertyModel.getObjectModel(Property.class).getAll();
 		return properties;
 		
 	}
 	
+	/**
+	 * @return
+	 */
+	public static  List<Property> getAllPropertyRecords() {
+		
+		
+		if(propertyRecords == null) {
+			try {
+				propertyModel = new PropertyDbModel();
+				propertyRecords = propertyModel.getObjectModel(Property.class).getAll();
+			} catch (SQLException | ClassNotFoundException | NoSuchFieldException e) {
+				e.printStackTrace();
+			}
+		}
+		return propertyRecords;
+		
+	}
+			
 	/**
 	 * 
 	 * @return
@@ -241,7 +261,7 @@ public class AssetLoader {
 	}
 	
 	public static String getDbName() {
-		return DB_NAME;
+		return DB_PATH;
 	}
 	
 	public static int getDbVersion() {
