@@ -1,5 +1,5 @@
 
-package com.monopoly.views;
+package com.monopoly.views.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import com.monopoly.views.FrontendViewable;
+
 /**
  * 
  * Skeleton class of a typical dialog. The dialog has three sections: header, body and footer
@@ -16,7 +18,7 @@ import javax.swing.JPanel;
  * @param <T>
  *
  */
-public abstract class AbstractDialog<T> extends JDialog implements ActionListener, IViewComponent {
+public abstract class AbstractDialog<T> extends JDialog implements ActionListener, FrontendViewable {
 
 	/**
 	 * 

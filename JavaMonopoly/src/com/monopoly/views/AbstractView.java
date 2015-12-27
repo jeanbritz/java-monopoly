@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-public abstract class AbstractViewComponent extends JPanel 
-											implements IViewComponent {
+public abstract class AbstractView extends JPanel 
+											implements FrontendViewable {
 
 	/**
 	 * 
@@ -28,7 +28,7 @@ public abstract class AbstractViewComponent extends JPanel
 	
 	
 	
-	public AbstractViewComponent(String title) {
+	public AbstractView(String title) {
 		super();
 		
 		setLayout(new BorderLayout());

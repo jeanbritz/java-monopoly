@@ -2,8 +2,10 @@ package com.monopoly.models.persistent;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Collection;
 
+import za.co.neilson.sqlite.orm.annotations.ForeignKey;
 import za.co.neilson.sqlite.orm.annotations.Nullable;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
@@ -22,7 +24,7 @@ public class Property {
 	private int PPosY;
 	
 	/** Database foreign fields **/
-	private PropertyType type;
+	private ArrayList<PropertyType> type;
 	//private Collection<Tariff> tariffs;
 	
 	/** Auxilary fields **/
@@ -55,12 +57,12 @@ public class Property {
 	}
 	
 	public PropertyType getType() {
-		return type;
+		return type.get(0);
 	}
 
-	public void setType(PropertyType type) {
+/*	public void setType(PropertyType type) {
 		this.type = type;
-	}
+	}*/
 
 	
 	public long getPCost() {
@@ -136,6 +138,13 @@ public class Property {
 		location = new Point(PPosX, PPosY);
 		}
 		return location;
+	}
+	
+	public boolean isOwnable() {
+		if (type != null) {
+			return type.get(0).getPtOwnable();
+		}
+		return false;
 	}
 
 }

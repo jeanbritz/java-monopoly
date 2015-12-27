@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-public class PlayerActionsViewComponent extends AbstractViewComponent {
+public class PlayerActionsView extends AbstractView {
 
 	/**
 	 * 
@@ -36,7 +36,7 @@ public class PlayerActionsViewComponent extends AbstractViewComponent {
 	private IPlayerActionEvents actionEvents;
 	
 	
-	public PlayerActionsViewComponent() {
+	public PlayerActionsView() {
 		super("Player Actions");
 		
 	}

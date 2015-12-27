@@ -8,7 +8,7 @@ public class PropertyType {
 	
 	/** Database table fields **/
 	@PrimaryKey(autoIncrement = true)
-	@ForeignKey(table = "Property", column = "PId", parentReference = "type")
+	@ForeignKey(table = "Property", column = "PPtId", parentReference = "type")
 	private long PtId;
 	@Nullable(value = false)
 	private String PtName;

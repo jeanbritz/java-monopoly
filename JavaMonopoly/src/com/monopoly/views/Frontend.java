@@ -17,9 +17,9 @@ import com.monopoly.AssetLoader;
 import com.monopoly.controllers.Player;
 import com.monopoly.controllers.Referee;
 import com.monopoly.models.Dices;
-import com.monopoly.views.PlayerActionsViewComponent.IPlayerActionEvents;
+import com.monopoly.views.PlayerActionsView.IPlayerActionEvents;
 
-public class Frontend extends JFrame implements ActionListener, IViewComponent, Runnable {
+public class Frontend extends JFrame implements ActionListener, FrontendViewable, Runnable {
 
 	/**
 	 * 
@@ -31,10 +31,10 @@ public class Frontend extends JFrame implements ActionListener, IViewComponent, 
 	public static final int WINDOW_HEIGHT = 600;
 	
 	AssetLoader loader;
-	private BoardViewComponent board;
-	private DiceViewComponent dice;
-	private PropertyManagerViewComponent propertyManager;
-	private PlayerActionsViewComponent playerActions;
+	private BoardView board;
+	private DiceView dice;
+	private PropertyManagerView propertyManager;
+	private PlayerActionsView playerActions;
 	private boolean running = false;
 	ArrayList<Player> players = new ArrayList<Player>();
 	JPanel panelRight = new JPanel();
@@ -52,10 +52,10 @@ public class Frontend extends JFrame implements ActionListener, IViewComponent, 
 		//setResizable(false);
 		setVisible(true);
 		//ref.getPlayers()
-		board = new BoardViewComponent(null);
-		dice = new DiceViewComponent();
-		propertyManager = new PropertyManagerViewComponent();
-		playerActions = new PlayerActionsViewComponent();
+		board = new BoardView(null);
+		dice = new DiceView();
+		propertyManager = new PropertyManagerView();
+		playerActions = new PlayerActionsView();
 		playerActions.setOnClickListener(new PlayerActions());
 		getContentPane().setLayout(new BorderLayout(2,2));
 		getContentPane().add(board, BorderLayout.CENTER);
@@ -104,15 +104,15 @@ public class Frontend extends JFrame implements ActionListener, IViewComponent, 
 		playerActions.updateView();
 	}
 	
-	public BoardViewComponent getBoardView() {
+	public BoardView getBoardView() {
 		return this.board;
 	}
 	
-	public DiceViewComponent getDiceView() {
+	public DiceView getDiceView() {
 		return this.dice;
 	}
 	
-	public PlayerActionsViewComponent getPlayerActionsView() {
+	public PlayerActionsView getPlayerActionsView() {
 		return playerActions;
 	}
 	

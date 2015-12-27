@@ -1,6 +1,6 @@
 package com.monopoly.views;
 
-public interface IViewComponent {
+public interface FrontendViewable {
 	
 	public void initView();
 	

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import com.monopoly.AssetLoader;
 import com.monopoly.controllers.Player;
 
-public class BoardViewComponent extends JPanel implements IViewComponent  {
+public class BoardView extends JPanel implements FrontendViewable  {
 	
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class BoardViewComponent extends JPanel implements IViewComponent  {
 	private int width = 0;
 	private List<Player> players;
 	
-	BoardViewComponent(List<Player> players) {
+	BoardView(List<Player> players) {
 		super();
 		this.players = players;
 		initView();

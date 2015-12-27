@@ -17,7 +17,7 @@ import com.monopoly.models.Dices;
  * @since 1.0
  * 
  */
-public class DiceViewComponent extends AbstractViewComponent {
+public class DiceView extends AbstractView {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class DiceViewComponent extends AbstractViewComponent {
 	ImageIcon imageFirst;
 	ImageIcon imageSecond;
 			
-	public DiceViewComponent() {
+	public DiceView() {
 		super("The Dices");
 		
 	}

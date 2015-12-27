@@ -123,18 +123,20 @@ public class AssetLoader {
 		
 	}
 	
-	public static List<Property> getPropertyCards() throws SQLException, ClassNotFoundException, NoSuchFieldException {
+	public static List<Property> getProperties() throws SQLException, ClassNotFoundException, NoSuchFieldException {
 		propertyModel = new PropertyDbModel();
 		List<Property> properties = propertyModel.getObjectModel(Property.class).getAll();
 		return properties;
 		
 	}
 	
-	public static Vector<Property> getPropertyCardsAsVector() throws ClassNotFoundException, NoSuchFieldException, SQLException {
-		List<Property> props = getPropertyCards();
+	public static Vector<Property> getOwnablePropertyCards() throws ClassNotFoundException, NoSuchFieldException, SQLException {
+		List<Property> props = getProperties();
 		Vector<Property> result = new Vector<Property>(4);
 		for(Property prop : props) {
-			result.addElement(prop);
+			if(prop.isOwnable()) {
+				result.addElement(prop);
+			}
 		}
 		return result;
 		

@@ -1,4 +1,4 @@
-package com.monopoly.views;
+package com.monopoly.views.dialogs;
 
 
 import java.awt.Color;

@@ -20,13 +20,14 @@ import javax.swing.event.ListSelectionListener;
 
 import com.monopoly.AssetLoader;
 import com.monopoly.models.persistent.Property;
+import com.monopoly.views.dialogs.PropertyCardDialog;
 
 /**
  * 
  * @author BritzJ
  *
  */
-public class PropertyManagerViewComponent extends AbstractViewComponent 
+public class PropertyManagerView extends AbstractView 
 										  implements ActionListener, ListSelectionListener {
 	
 	/**
@@ -48,7 +49,7 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 	int selected = -1;
 	PropertyCardDialog viewer = new PropertyCardDialog();
 		
-	PropertyManagerViewComponent() {
+	PropertyManagerView() {
 		super("Property Manager");
 		
 		setSize(500, 400);
@@ -60,7 +61,7 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 		listAll = new JList<Property>();
 		try {
 			
-			listAll.setListData(AssetLoader.getPropertyCardsAsVector());
+			listAll.setListData(AssetLoader.getOwnablePropertyCards());
 		} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -137,8 +138,8 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 		public Component getListCellRendererComponent(
 				JList<? extends Property> list, Property property, int index,
 				boolean isSelected, boolean cellHasFocus) {
-			if(property != null) {
-				if(property.getType() != null) {
+			
+				
 				if(property.getType().getPtName().equals("Station")) {
 					setIcon(AssetLoader.loadImageIcon("train"));
 				} else if (property.getPName().equals("Water")) {
@@ -149,10 +150,10 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 					// Most probably a Street, Avenue, etc...
 					setIcon(AssetLoader.loadImageIcon("property"));
 				}
-				}
+				
 				buttonView.setEnabled(true);
-				setText(property.getPName() + " " + property.getType());
-			}
+				setText(property.getPName() + " " + property.getType().getPtName());
+						
 			if(isSelected) {
 				setBackground(Color.BLACK);
 				setForeground(Color.WHITE);
