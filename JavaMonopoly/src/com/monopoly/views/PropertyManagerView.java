@@ -138,8 +138,7 @@ public class PropertyManagerView extends AbstractView
 		public Component getListCellRendererComponent(
 				JList<? extends Property> list, Property property, int index,
 				boolean isSelected, boolean cellHasFocus) {
-			
-				
+							
 				if(property.getType().getPtName().equals("Station")) {
 					setIcon(AssetLoader.loadImageIcon("train"));
 				} else if (property.getPName().equals("Water")) {
@@ -152,7 +151,7 @@ public class PropertyManagerView extends AbstractView
 				}
 				
 				buttonView.setEnabled(true);
-				setText(property.getPName() + " " + property.getType().getPtName());
+				setText(property.getPName() + ' ' + property.getType().getPtName());
 						
 			if(isSelected) {
 				setBackground(Color.BLACK);

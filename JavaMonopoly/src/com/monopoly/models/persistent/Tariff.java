@@ -8,7 +8,7 @@ public class Tariff {
 	@PrimaryKey(autoIncrement = true)
 	private long TId;
 	
-	//@ForeignKey(table = "Property", column = "P_ID", childReference = "TPId", parentReference = "tariffs")
+	@ForeignKey(table = "Property", column = "PId", parentReference = "tariffs")
 	private long TPId;
 	private long TCode;
 	private long TCost;

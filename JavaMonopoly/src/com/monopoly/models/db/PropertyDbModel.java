@@ -31,18 +31,15 @@ public class PropertyDbModel extends AbstractDatabaseModel {
 		 */
 		
 		// Register the ObjectModel for the Property class with the DatabaseModel
-		objectModels.put(Property.class, new JdbcObjectModel<Property>(this) {
-		});
+		objectModels.put(Property.class, new JdbcObjectModel<Property>(this) {});
 		
 		// PropertyType has a foreign key reference to Property and must therefore be added after
 		// Property.
-		objectModels.put(PropertyType.class, new JdbcObjectModel<PropertyType>(this) {
-		});
+		objectModels.put(PropertyType.class, new JdbcObjectModel<PropertyType>(this) {});
 		
 		// Tariff has a foreign key reference to Property and must therefore be added after
 		// Property.
-		//objectModels.put(Tariff.class, new JdbcObjectModel<Tariff>(this) {
-		//});
+		objectModels.put(Tariff.class, new JdbcObjectModel<Tariff>(this) {});
 		
 	}
 

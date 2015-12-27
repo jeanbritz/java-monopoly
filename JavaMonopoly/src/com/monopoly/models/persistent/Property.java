@@ -25,7 +25,7 @@ public class Property {
 	
 	/** Database foreign fields **/
 	private ArrayList<PropertyType> type;
-	//private Collection<Tariff> tariffs;
+	private ArrayList<Tariff> tariffs;
 	
 	/** Auxilary fields **/
 	private Point location;
@@ -60,11 +60,6 @@ public class Property {
 		return type.get(0);
 	}
 
-/*	public void setType(PropertyType type) {
-		this.type = type;
-	}*/
-
-	
 	public long getPCost() {
 		return PCost;
 	}
@@ -113,13 +108,9 @@ public class Property {
 		PPosY = pPosY;
 	}
 
-/*	public void setTariffs(Collection<Tariff> tariffs) {
-		this.tariffs = tariffs;
-	}
-
 	public Collection<Tariff> getTariffs() {
 		return tariffs;
-	}*/
+	}
 
 	public Color getColour() {
 		if(PRgbColor != null) {
