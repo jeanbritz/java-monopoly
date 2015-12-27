@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -35,7 +35,7 @@ public class AssetLoader {
 	private static PropertyDbModel propertyModel;
 	
 	private static final String ASSET_FOLDER = System.getProperty("user.dir") + File.separatorChar +"assets";
-	private static final String DB_PATH = ASSET_FOLDER + File.separatorChar + "database.db"; 
+	private static final String DB_FILENAME = "database.db"; 
 	private static final int DB_VERSION = 1;
 	
 	private static List<Property> propertyRecords = null;
@@ -127,6 +127,16 @@ public class AssetLoader {
 		propertyModel = new PropertyDbModel();
 		List<Property> properties = propertyModel.getObjectModel(Property.class).getAll();
 		return properties;
+		
+	}
+	
+	public static Vector<Property> getPropertyCardsAsVector() throws ClassNotFoundException, NoSuchFieldException, SQLException {
+		List<Property> props = getPropertyCards();
+		Vector<Property> result = new Vector<Property>(4);
+		for(Property prop : props) {
+			result.addElement(prop);
+		}
+		return result;
 		
 	}
 	
@@ -261,7 +271,7 @@ public class AssetLoader {
 	}
 	
 	public static String getDbName() {
-		return DB_PATH;
+		return DB_FILENAME;
 	}
 	
 	public static int getDbVersion() {

@@ -59,7 +59,8 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 	public void initView() {
 		listAll = new JList<Property>();
 		try {
-			listAll.setListData((Property[]) AssetLoader.getPropertyCards().toArray());
+			
+			listAll.setListData(AssetLoader.getPropertyCardsAsVector());
 		} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -137,7 +138,8 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 				JList<? extends Property> list, Property property, int index,
 				boolean isSelected, boolean cellHasFocus) {
 			if(property != null) {
-				if(property.getType().equals("Station")) {
+				if(property.getType() != null) {
+				if(property.getType().getPtName().equals("Station")) {
 					setIcon(AssetLoader.loadImageIcon("train"));
 				} else if (property.getPName().equals("Water")) {
 					setIcon(AssetLoader.loadImageIcon("waterboard"));
@@ -146,6 +148,7 @@ public class PropertyManagerViewComponent extends AbstractViewComponent
 				} else {
 					// Most probably a Street, Avenue, etc...
 					setIcon(AssetLoader.loadImageIcon("property"));
+				}
 				}
 				buttonView.setEnabled(true);
 				setText(property.getPName() + " " + property.getType());

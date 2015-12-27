@@ -19,7 +19,7 @@ import com.monopoly.controllers.Referee;
 import com.monopoly.models.Dices;
 import com.monopoly.views.PlayerActionsViewComponent.IPlayerActionEvents;
 
-public class Monopoly extends JFrame implements ActionListener, IViewComponent, Runnable {
+public class Frontend extends JFrame implements ActionListener, IViewComponent, Runnable {
 
 	/**
 	 * 
@@ -41,7 +41,7 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 	BoxLayout layoutRight = new BoxLayout(panelRight, BoxLayout.PAGE_AXIS);
 	Referee ref;
 	
-	public Monopoly(Referee ref) {
+	public Frontend(Referee ref) {
 		
 		// Initialize the frame
 		setTitle("Monopoly");
@@ -52,7 +52,7 @@ public class Monopoly extends JFrame implements ActionListener, IViewComponent, 
 		//setResizable(false);
 		setVisible(true);
 		//ref.getPlayers()
-		//board = new BoardViewComponent();
+		board = new BoardViewComponent(null);
 		dice = new DiceViewComponent();
 		propertyManager = new PropertyManagerViewComponent();
 		playerActions = new PlayerActionsViewComponent();
