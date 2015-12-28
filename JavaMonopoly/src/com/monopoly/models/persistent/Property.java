@@ -3,10 +3,7 @@ package com.monopoly.models.persistent;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Collection;
 
-import za.co.neilson.sqlite.orm.annotations.ForeignKey;
-import za.co.neilson.sqlite.orm.annotations.Nullable;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
 public class Property {
@@ -108,7 +105,7 @@ public class Property {
 		PPosY = pPosY;
 	}
 
-	public Collection<Tariff> getTariffs() {
+	public ArrayList<Tariff> getTariffs() {
 		return tariffs;
 	}
 
@@ -136,6 +133,10 @@ public class Property {
 			return type.get(0).getPtOwnable();
 		}
 		return false;
+	}
+
+	public String toString() {
+		return getPName() + ' ' + type.get(0).getPtName();
 	}
 
 }

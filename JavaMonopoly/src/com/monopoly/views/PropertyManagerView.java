@@ -151,7 +151,7 @@ public class PropertyManagerView extends AbstractView
 				}
 				
 				buttonView.setEnabled(true);
-				setText(property.getPName() + ' ' + property.getType().getPtName());
+			setText(property.toString());
 						
 			if(isSelected) {
 				setBackground(Color.BLACK);

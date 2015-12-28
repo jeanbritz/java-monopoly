@@ -262,7 +262,7 @@ public class AssetLoader {
 		} else if(heading.equalsIgnoreCase("h2")) {
 			return new Font("Arial", Font.BOLD, 25);
 		} else if(heading.equalsIgnoreCase("h3")) {
-			
+			return new Font("Arial", Font.PLAIN, 10);
 		} else if(heading.equalsIgnoreCase("body")) {
 			return new Font("Arial", Font.PLAIN, 12);
 		}
