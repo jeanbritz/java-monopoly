@@ -2,7 +2,6 @@ package com.monopoly.views.dialogs;
 
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -16,6 +15,7 @@ import javax.swing.table.AbstractTableModel;
 import com.monopoly.AssetLoader;
 import com.monopoly.models.persistent.Property;
 import com.monopoly.models.persistent.Tariff;
+import com.monopoly.views.CenteredLabel;
 
 public class PropertyCardDialog extends AbstractDialog<Property> {
 
@@ -65,38 +65,33 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		tableTariffs.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableTariffs.getColumnModel().getColumn(0).setPreferredWidth(150);
 
-		labelSmallNote.setText(
-"<html>If a player owns ALL the Sites of any Colour-Group,"
-		    + " the rent is Doubled on Unimproved Sites in that group</html>");
-		// labelSmallNote.setMaximumSize();
-		labelSmallNote.setPreferredSize(new Dimension((int) (getBodyPanel().getWidth() * 0.9), 50));
-		
-		Tariff oneHouse = data.getTariffs().get(1);
+		((CenteredLabel) labelSmallNote).setText(
+"If a player owns ALL the Sites of any Colour-Group,"
+		    + " the rent is Doubled on Unimproved Sites in that group");
+		((CenteredLabel) labelSmallNote).adjustToPreferredSize();
 
-		labelHouseCost.setText(
-"<html>COST of Houses, R " + oneHouse.getTCost() + " each <br> COST of Hotels, R "
-		    + oneHouse.getTCost() * 5 + " each</html>");
-		labelHouseCost.setPreferredSize(new Dimension((int) (getBodyPanel().getWidth() * 0.9), 50));
+		Tariff oneHouse = data.getTariffs().get(1);
+		((CenteredLabel) labelHouseCost).setText(
+"COST of Houses, R " + oneHouse.getTCost() + " each <br> COST of Hotels, R "
+		    + oneHouse.getTCost() * 5 + " each");
+		((CenteredLabel) labelHouseCost).adjustToPreferredSize();
+
+		((CenteredLabel) labelMortage).setText("MORTAGE value of site, R " + data.getPMortageVal());
+		((CenteredLabel) labelMortage).adjustToPreferredSize();
 	}
 
 	
 	@Override
 	public void initView() {
-		labelHeader = new JLabel("Header");
-		labelHeader.setFont(AssetLoader.loadFont("h2"));
-		labelHeader.setVerticalAlignment(JLabel.CENTER);
-		labelHeader.setHorizontalAlignment(JLabel.CENTER);
-		
-		labelSmallNote = new JLabel("Small Note");
-		labelSmallNote.setFont(AssetLoader.loadFont("h3"));
-		labelSmallNote.setVerticalAlignment(JLabel.CENTER);
-		
-		labelHouseCost = new JLabel("Cost of House");
-		labelHouseCost.setVerticalAlignment(JLabel.CENTER);
+		labelHeader = new CenteredLabel("Header", AssetLoader.loadFont("h2"));
 
 		tableTariffs = new JTable();
 		tableTariffs.setGridColor(Color.white);
 
+		labelSmallNote = new CenteredLabel("Small Note", 50, AssetLoader.loadFont("h3"));
+		labelHouseCost = new CenteredLabel("Cost of House", 50);
+		labelMortage = new CenteredLabel("Mortage", null);
+		
 		buttonClose = new JButton("Close");
 
 		getHeaderPanel().add(labelHeader);
@@ -104,7 +99,7 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		getBodyPanel().add(tableTariffs);
 		getBodyPanel().add(labelSmallNote);
 		getBodyPanel().add(labelHouseCost);
-		// getBodyPanel().add(labelMortage);
+		getBodyPanel().add(labelMortage);
 
 		getFooterPanel().add(buttonClose);
 		

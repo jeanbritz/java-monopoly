@@ -6,6 +6,13 @@ import java.util.ArrayList;
 
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
+/**
+ * Each instance of this class represents each of the 40 spaces on the Monopoly
+ * board.
+ * 
+ * @author Jean
+ * @since 1.0
+ */
 public class Property {
 	
 	/** Database table fields **/
@@ -24,103 +31,134 @@ public class Property {
 	private ArrayList<PropertyType> type;
 	private ArrayList<Tariff> tariffs;
 	
-	/** Auxilary fields **/
+	/** Auxiliary fields **/
 	private Point location;
 	private Color color;
 		
-
+	/**
+	 * Returns the property's unique id
+	 * 
+	 * @return PId
+	 */
 	public int getPId() {
 		return PId;
 	}
 
-	public void setPId(int pId) {
-		PId = pId;
-	}
-
+	/**
+	 * Returns the Property's name
+	 * 
+	 * @return PName column's row value
+	 */
 	public String getPName() {
 		return PName;
 	}
 
-	public void setPName(String pName) {
-		PName = pName;
-	}
-	
-	public long getPtId() {
-		return PPtId;
-	}
-
-	public void setPtId(long pPtId) {
-		PPtId = pPtId;
-	}
-	
+	/**
+	 * Return info about the type of property. In other words, PPtId foreign key's
+	 * corresponding row value in the PropertyType table.
+	 * 
+	 * @return {@link PropertyType}
+	 */
 	public PropertyType getType() {
 		return type.get(0);
 	}
 
+	/**
+	 * Returns the initial cost of the property
+	 * 
+	 * @return PCost column's row value
+	 */
 	public long getPCost() {
 		return PCost;
 	}
 
-	public void setPCost(long pCost) {
-		PCost = pCost;
-	}
-
+	/**
+	 * Returns the cost of a house on this property
+	 * 
+	 * @return PHouseCost column's row value
+	 */
 	public long getPHouseCost() {
 		return PHouseCost;
 	}
 
-	public void setPHouseCost(long pHouseCost) {
-		PHouseCost = pHouseCost;
-	}
-
+	/**
+	 * Returns the mortage value of this property, if it is not applicable it will
+	 * be 0.
+	 * 
+	 * @return PMortageVal column's row value
+	 */
 	public long getPMortageVal() {
 		return PMortageVal;
 	}
 
-	public void setPMortageVal(long pMortageVal) {
-		PMortageVal = pMortageVal;
-	}
-
+	/**
+	 * Returns the R,G,B text value.
+	 * 
+	 * @return PRgbColor column's row value
+	 * @see {@link Property#getColour()}
+	 */
 	public String getPRgbColor() {
 		return PRgbColor;
 	}
 
-	public void setPRgbColor(String pRgbColor) {
-		PRgbColor = pRgbColor;
-	}
-
+	/**
+	 * Returns the X-axis value of the property's location
+	 * 
+	 * @return PPosX column's row value
+	 * @see {@link Property#getLocation()}
+	 */
 	public int getPPosX() {
 		return PPosX;
 	}
 
-	public void setPPosX(int pPosX) {
-		PPosX = pPosX;
-	}
-
+	/**
+	 * Returns the Y-axis value of the property's location
+	 * 
+	 * @return PPosY column's row value
+	 * @see {@link Property#getLocation()}
+	 */
 	public int getPPosY() {
 		return PPosY;
 	}
 
-	public void setPPosY(int pPosY) {
-		PPosY = pPosY;
-	}
-
+	/**
+	 * Returns all tariffs in terms of renting rates when houses or a hotel are on
+	 * the property.
+	 * 
+	 * @return (if any) Array of {@link Tariff} objects, which are applicable to
+	 *         this property.
+	 */
 	public ArrayList<Tariff> getTariffs() {
 		return tariffs;
 	}
 
+	/**
+	 * Returns the color of the property, if it doesn't have a color it returns
+	 * white
+	 * 
+	 * @return {@link Color}
+	 */
 	public Color getColour() {
-		if(PRgbColor != null) {
+		if (PRgbColor != null && !PRgbColor.isEmpty()) {
 			String comp[] = PRgbColor.split("[,]");
 			if(color == null) {
 			color = new Color(Integer.valueOf(comp[0]), 
 							 Integer.valueOf(comp[1]), 
 							 Integer.valueOf(comp[2]));
 			}
+		} else {
+			return Color.white;
 		}
 		return color;
 	}
 	
+	/**
+	 * Returns a {@link Point} object of the physical location of the property on
+	 * the board.
+	 * 
+	 * @return {@link Point} object, which contains X-Y co-ordinates of the
+	 *         property's location
+	 */
 	public Point getLocation() {
 		if(location == null) {
 		location = new Point(PPosX, PPosY);
@@ -128,6 +166,12 @@ public class Property {
 		return location;
 	}
 	
+	/**
+	 * Returns a boolean value which states if this property can be owned by a
+	 * player
+	 * 
+	 * @return true - It can be owned/bought, false - it cannot be owned/bought
+	 */
 	public boolean isOwnable() {
 		if (type != null) {
 			return type.get(0).getPtOwnable();
@@ -135,6 +179,12 @@ public class Property {
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
 	public String toString() {
 		return getPName() + ' ' + type.get(0).getPtName();
 	}
