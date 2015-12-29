@@ -10,7 +10,11 @@ import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
  * Each instance of this class represents each of the 40 spaces on the Monopoly
  * board.
  * 
- * @author Jean
+ * This class is also used when loading the database table 'Property' into
+ * memory. Each column's value has a corresponding getter method.
+ * 
+ * @author Jean Britz
+ * @version 1.0
  * @since 1.0
  */
 public class Property {
@@ -54,13 +58,13 @@ public class Property {
 	}
 
 	/**
-	 * Return info about the type of property. In other words, PPtId foreign key's
-	 * corresponding row value in the PropertyType table.
+	 * Returns the Property's type id
 	 * 
-	 * @return {@link PropertyType}
+	 * @return PPtId column's row value
+	 * @see {@link Property#getType()}
 	 */
-	public PropertyType getType() {
-		return type.get(0);
+	public long getPPtId() {
+		return PPtId;
 	}
 
 	/**
@@ -119,6 +123,16 @@ public class Property {
 	 */
 	public int getPPosY() {
 		return PPosY;
+	}
+
+	/**
+	 * Return info about the type of property. In other words, PPtId foreign key's
+	 * corresponding row value in the PropertyType table.
+	 * 
+	 * @return {@link PropertyType}
+	 */
+	public PropertyType getType() {
+		return type.get(0);
 	}
 
 	/**

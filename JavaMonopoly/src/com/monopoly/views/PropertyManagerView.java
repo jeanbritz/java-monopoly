@@ -35,6 +35,8 @@ public class PropertyManagerView extends AbstractView
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static final int NONE_SELECTED = -1;
+
 	JTabbedPane tabbedPane;
 	JPanel panelButtons;
 	
@@ -46,7 +48,7 @@ public class PropertyManagerView extends AbstractView
 		
 	JButton buttonView;
 		
-	int selected = -1;
+	int selected = NONE_SELECTED;
 	PropertyCardDialog viewer = new PropertyCardDialog();
 		
 	PropertyManagerView() {

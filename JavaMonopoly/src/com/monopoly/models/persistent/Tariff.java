@@ -5,6 +5,7 @@ import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
 
 public class Tariff {
 	
+	/** Database table fields **/
 	@PrimaryKey(autoIncrement = true)
 	private long TId;
 	
@@ -13,37 +14,36 @@ public class Tariff {
 	private long TCode;
 	private long TCost;
 
+	/**
+	 * 
+	 * @return
+	 */
 	public long getTId() {
 		return TId;
 	}
 
-	public void setTId(long tId) {
-		TId = tId;
-	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public long getTPId() {
 		return TPId;
 	}
 
-	public void setTPId(long tPId) {
-		TPId = tPId;
-	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public long getTCode() {
 		return TCode;
 	}
 
-	public void setTCode(long tCode) {
-		TCode = tCode;
-	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public long getTCost() {
 		return TCost;
 	}
 
-	public void setTCost(long tCost) {
-		TCost = tCost;
-	}
-	
-	
 }

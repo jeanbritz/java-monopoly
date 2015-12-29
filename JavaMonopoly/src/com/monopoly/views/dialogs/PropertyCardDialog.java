@@ -15,7 +15,6 @@ import javax.swing.table.AbstractTableModel;
 import com.monopoly.AssetLoader;
 import com.monopoly.models.persistent.Property;
 import com.monopoly.models.persistent.Tariff;
-import com.monopoly.views.CenteredLabel;
 
 public class PropertyCardDialog extends AbstractDialog<Property> {
 
@@ -58,8 +57,26 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		
 		labelHeader.setText(property.toString());
 		getHeaderPanel().setBackground(property.getColour());
+		
+		String type = data.getType().getPtName();
 
-		tableTariffs.setModel(new TariffTableModel(property.getTariffs()));
+		if (type.equalsIgnoreCase("Station")) {
+			setStationPropertyData(data);
+		} else if (type.equalsIgnoreCase("Board")) {
+			setBoardPropertyData(data);
+		} else {
+			setEstatePropertyData(data);
+		}
+		tableTariffs.setAlignmentX((float) (getBodyPanel().getWidth() * 0.5));
+		((CenteredLabel) labelMortage).setText("MORTAGE value of site, R " + data.getPMortageVal());
+		((CenteredLabel) labelMortage).adjustToPreferredSize();
+		((CenteredLabel) labelSmallNote).adjustToPreferredSize();
+		((CenteredLabel) labelHouseCost).adjustToPreferredSize();
+	}
+	
+	private void setEstatePropertyData(Property data) {
+		tableTariffs.setVisible(true);
+		tableTariffs.setModel(new EstateTariffTable(property.getTariffs()));
 		// Auto-resize is not triggered after table's model is set, therefore need
 		// to resize the column manually.
 		tableTariffs.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -68,16 +85,36 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		((CenteredLabel) labelSmallNote).setText(
 "If a player owns ALL the Sites of any Colour-Group,"
 		    + " the rent is Doubled on Unimproved Sites in that group");
-		((CenteredLabel) labelSmallNote).adjustToPreferredSize();
 
 		Tariff oneHouse = data.getTariffs().get(1);
 		((CenteredLabel) labelHouseCost).setText(
 "COST of Houses, R " + oneHouse.getTCost() + " each <br> COST of Hotels, R "
 		    + oneHouse.getTCost() * 5 + " each");
-		((CenteredLabel) labelHouseCost).adjustToPreferredSize();
 
-		((CenteredLabel) labelMortage).setText("MORTAGE value of site, R " + data.getPMortageVal());
-		((CenteredLabel) labelMortage).adjustToPreferredSize();
+	}
+
+	/**
+	 * 
+	 * @param data
+	 */
+	private void setStationPropertyData(Property data) {
+		tableTariffs.setVisible(true);
+		tableTariffs.setModel(new StationTariffTable(property.getTariffs()));
+		// Auto-resize is not triggered after table's model is set, therefore need
+		// to resize the column manually.
+		tableTariffs.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableTariffs.getColumnModel().getColumn(0).setPreferredWidth(150);
+
+		((CenteredLabel) labelSmallNote).setText("");
+		((CenteredLabel) labelHouseCost).setText("");
+	}
+
+	private void setBoardPropertyData(Property data) {
+		tableTariffs.setVisible(false);
+		((CenteredLabel) labelSmallNote).setText("");
+		((CenteredLabel) labelHouseCost).setText("If one <em>Utilty</em> is owned, rent is 4 times amount shown on dice."
+		    + "<br> If both <em>Utilities</em> are owned rent is 10 times amount shown on dice.");
+
 	}
 
 	
@@ -88,8 +125,8 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		tableTariffs = new JTable();
 		tableTariffs.setGridColor(Color.white);
 
-		labelSmallNote = new CenteredLabel("Small Note", 50, AssetLoader.loadFont("h3"));
-		labelHouseCost = new CenteredLabel("Cost of House", 50);
+		labelSmallNote = new CenteredLabel("Small Note", 70, AssetLoader.loadFont("h3"));
+		labelHouseCost = new CenteredLabel("Cost of House", 70);
 		labelMortage = new CenteredLabel("Mortage", null);
 		
 		buttonClose = new JButton("Close");
@@ -108,6 +145,8 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		
 	}
 	
+	
+	
 	@Override
 	public void updateView() {
 		// The Dialog does not have any animations yet to be updated.
@@ -124,12 +163,14 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 	}
 	
 	/**
-	 * Custom table model to display the tariffs for each property card
+	 * Custom table model to display the tariffs for a estate property card
 	 * 
-	 * @author Jean
+	 * @author Jean Britz
+	 * @version 1.0
+	 * @since 1.0
 	 *
 	 */
-	public class TariffTableModel extends AbstractTableModel {
+	private class EstateTariffTable extends AbstractTableModel {
 
 		/**
 		 * 
@@ -138,7 +179,7 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 
 		ArrayList<Tariff> tariffs = null;
 
-		public TariffTableModel(ArrayList<Tariff> tariffs) {
+		public EstateTariffTable(ArrayList<Tariff> tariffs) {
 			super();
 			this.tariffs = tariffs;
 
@@ -179,5 +220,57 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		
 	
 	}
+	
+	/**
+	 * Custom table model to display the tariffs for a station property card
+	 * 
+	 * @author Jean Britz
+	 * @version 1.0
+	 * @since 1.0
+	 *
+	 */
+	private class StationTariffTable extends AbstractTableModel {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		ArrayList<Tariff> tariffs = null;
+
+		public StationTariffTable(ArrayList<Tariff> tariffs) {
+			super();
+			this.tariffs = tariffs;
+
+		}
+
+		@Override
+		public int getRowCount() {
+			
+			return tariffs.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			
+			return 2;
+		}
+
+		@Override
+		public Object getValueAt(int rowIdx, int colIdx) {
+			
+			if (colIdx != 0) {
+				return tariffs.get(rowIdx).getTCost();
+			} else {
+				long code = tariffs.get(rowIdx).getTCode();
+				if (code == 0) {
+					return "RENT - Site only ";
+				} else {
+					return "    If " + (code + 1) + " Stations are owned";
+				}
+			}
+		}
+	}
+
 
 }
