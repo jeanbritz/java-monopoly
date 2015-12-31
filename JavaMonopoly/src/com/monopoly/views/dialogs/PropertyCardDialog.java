@@ -51,6 +51,11 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		dispose();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.dialogs.AbstractDialog#setData(java.lang.Object)
+	 */
 	@Override
 	public void setData(Property data) {
 		property = data;
@@ -74,6 +79,10 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		((CenteredLabel) labelHouseCost).adjustToPreferredSize();
 	}
 	
+	/**
+	 * 
+	 * @param data
+	 */
 	private void setEstatePropertyData(Property data) {
 		tableTariffs.setVisible(true);
 		tableTariffs.setModel(new EstateTariffTable(property.getTariffs()));
@@ -109,6 +118,10 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		((CenteredLabel) labelHouseCost).setText("");
 	}
 
+	/**
+	 * 
+	 * @param data
+	 */
 	private void setBoardPropertyData(Property data) {
 		tableTariffs.setVisible(false);
 		((CenteredLabel) labelSmallNote).setText("");
@@ -117,7 +130,11 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.dialogs.AbstractDialog#initView()
+	 */
 	@Override
 	public void initView() {
 		labelHeader = new CenteredLabel("Header", AssetLoader.loadFont("h2"));
@@ -146,14 +163,21 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 	}
 	
 	
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.FrontendViewable#updateView()
+	 */
 	@Override
 	public void updateView() {
 		// The Dialog does not have any animations yet to be updated.
 	}
 	
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {

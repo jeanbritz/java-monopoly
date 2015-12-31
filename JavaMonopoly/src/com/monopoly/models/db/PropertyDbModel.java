@@ -9,7 +9,6 @@ import com.monopoly.models.persistent.Property;
 import com.monopoly.models.persistent.PropertyType;
 import com.monopoly.models.persistent.Tariff;
 
-import za.co.neilson.sqlite.orm.DatabaseInfo;
 import za.co.neilson.sqlite.orm.ObjectModel;
 import za.co.neilson.sqlite.orm.jdbc.JdbcObjectModel;
 
@@ -41,6 +40,7 @@ public class PropertyDbModel extends AbstractDatabaseModel {
 		// Property.
 		objectModels.put(Tariff.class, new JdbcObjectModel<Tariff>(this) {});
 		
+
 	}
 
 	

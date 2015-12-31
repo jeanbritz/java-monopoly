@@ -13,9 +13,28 @@ import com.monopoly.views.FrontendViewable;
 
 /**
  * 
- * Skeleton class of a typical dialog. The dialog has three sections: header, body and footer
- * @author BritzJ
+ * Skeleton class of a typical dialog. The dialog has three sections: header,
+ * body and footer <br>
+ * <br>
+ * <table border="1px">
+ * <tbody>
+ * <tr>
+ * <td>Header panel</td>
+ * </tr>
+ * <tr>
+ * <td>Body panel</td>
+ * </tr>
+ * <tr>
+ * <td>Footer panel</td>
+ * </tr>
+ * </tbody>
+ * </table>
+ * 
+ * 
+ * @author Jean Britz
  * @param <T>
+ * @version 1.0
+ * @since 1.0
  *
  */
 public abstract class AbstractDialog<T> extends JDialog implements ActionListener, FrontendViewable {
@@ -45,30 +64,55 @@ public abstract class AbstractDialog<T> extends JDialog implements ActionListene
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
+	/**
+	 * Returns object reference for header panel
+	 * 
+	 * @return
+	 */
 	public JPanel getHeaderPanel() {
 		return this.panelHeader;
 	}
 	
+	/**
+	 * Returns object reference for body panel
+	 * 
+	 * @return
+	 */
 	public JPanel getBodyPanel() {
 		return this.panelBody;
 	}
 	
+	/**
+	 * Returns object reference for footer panel
+	 * 
+	 * @return
+	 */
 	public JPanel getFooterPanel() {
 		return this.panelFooter;
 	}
 	
-	/**
-	 * Needs to be implemented by the subclass 
-	 * for the subclass to be able to add more GUI to the dialog
+	/*
+	 * (non-Javadoc)
 	 * 
+	 * @see com.monopoly.views.FrontendViewable#initView()
 	 */
 	@Override
 	public abstract void initView();
 	
-	public abstract void setData(T data);
 	/**
+	 * Data of type {@link T} to be displayed on the dialog. Note: Needs to be
+	 * implemented by the subclass
+	 * 
+	 * @param data
+	 *          - Reference to data
+	 */
+	public abstract void setData(T data);
+
+	/**
+	 * Set the colour of the content pane.
 	 * 
 	 * @param colour
+	 *          - Colour to be set
 	 */
 	public void setColour(Color colour) {
 		getContentPane().setBackground(colour);
