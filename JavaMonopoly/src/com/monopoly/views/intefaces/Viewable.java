@@ -1,4 +1,4 @@
-package com.monopoly.views;
+package com.monopoly.views.intefaces;
 
 /**
  * 
@@ -6,7 +6,7 @@ package com.monopoly.views;
  * @version 1.0
  * @since 1.0
  */
-public interface FrontendViewable {
+public interface Viewable {
 	
 	/**
 	 * Called when any view is being created on the frontend.

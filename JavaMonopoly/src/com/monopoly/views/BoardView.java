@@ -3,14 +3,14 @@ package com.monopoly.views;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import javax.swing.JPanel;
 
 import com.monopoly.AssetLoader;
-import com.monopoly.controllers.Player;
+import com.monopoly.controllers.PlayerLinkedList;
+import com.monopoly.views.intefaces.Animatable;
 
-public class BoardView extends JPanel implements FrontendViewable  {
+public class BoardView extends JPanel implements Animatable {
 	
 	/**
 	 * 
@@ -19,9 +19,9 @@ public class BoardView extends JPanel implements FrontendViewable  {
 	private BufferedImage image = null;
 	private int height = 0;
 	private int width = 0;
-	private List<Player> players;
+	private PlayerLinkedList players;
 	
-	BoardView(List<Player> players) {
+	BoardView(PlayerLinkedList players) {
 		super();
 		this.players = players;
 		initView();
@@ -29,14 +29,16 @@ public class BoardView extends JPanel implements FrontendViewable  {
 	}
 			
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		
 		g.drawImage(image, 0, 0, this);
-		/*for(Player player : players) {
-			Point pos = player.getPropertyAt().getBoardLocation();
-			g.drawImage(player.getToken(), (int)pos.getX()+player.getId()*3, (int)pos.getY()+player.getId()*3, this);
-					
-		}*/
+		if (players != null) {
+			for (int i = 0; i < players.getSize(); i++) {
+				Point pos = players.get(i).getPropertyAt().getLocation();
+				g.drawImage(players.get(i).getToken(), (int) pos.getX() + players.get(i).getId() * 3,
+				    (int) pos.getY() + players.get(i).getId() * 3,
+				    this);
+
+			}
+		}
 	}
 
 	@Override
@@ -46,12 +48,10 @@ public class BoardView extends JPanel implements FrontendViewable  {
 		width = image.getWidth();
 		setSize(height, width);
 		
-		repaint();
 	}
 
 	@Override
 	public void updateView() {
-		
-		
+		repaint();
 	}
 }

@@ -24,7 +24,9 @@ import com.monopoly.views.dialogs.PropertyCardDialog;
 
 /**
  * 
- * @author BritzJ
+ * @version 1.0
+ * @since 1.0
+ * @author Jean Britz
  *
  */
 public class PropertyManagerView extends AbstractView 
@@ -37,32 +39,34 @@ public class PropertyManagerView extends AbstractView
 
 	private static final int NONE_SELECTED = -1;
 
-	JTabbedPane tabbedPane;
-	JPanel panelButtons;
+	private static JTabbedPane tabbedPane;
+	private static JPanel panelButtons;
 	
-	JList<Property> listAll;
-	JList<Property> listOwn;
+	private static JList<Property> listAll;
+	private JList<Property> listOwn;
 	
-	JScrollPane scrollAll;
-	JScrollPane scrollOwn;
+	private static JScrollPane scrollAll;
+	private static JScrollPane scrollOwn;
 		
-	JButton buttonView;
+	private static JButton buttonView;
 		
-	int selected = NONE_SELECTED;
-	PropertyCardDialog viewer = new PropertyCardDialog();
+	private static final int selected = NONE_SELECTED;
+	private PropertyCardDialog viewer = new PropertyCardDialog();
 		
 	PropertyManagerView() {
 		super("Property Manager");
 		
-		setSize(500, 400);
-		
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.AbstractView#initView()
+	 */
 	@Override
 	public void initView() {
 		listAll = new JList<Property>();
 		try {
-			
 			listAll.setListData(AssetLoader.getOwnablePropertyCards());
 		} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
 			e.printStackTrace();
@@ -85,13 +89,26 @@ public class PropertyManagerView extends AbstractView
 		scrollAll.revalidate();
 		scrollAll.repaint();
 		
+		setSize(500, 400);
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.AbstractView#updateView()
+	 */
 	@Override
 	public void updateView() {
 				
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if(event.getSource() == buttonView) {
@@ -102,6 +119,13 @@ public class PropertyManagerView extends AbstractView
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.
+	 * ListSelectionEvent)
+	 */
 	@Override
 	public void valueChanged(ListSelectionEvent event) {
 		if(event.getValueIsAdjusting()) {
@@ -117,11 +141,6 @@ public class PropertyManagerView extends AbstractView
 		
 	}
 	
-	/**
-	 * 
-	 * @author BritzJ
-	 *
-	 */
 	class PropertyListCell extends JLabel implements ListCellRenderer<Property> {
 
 		/**

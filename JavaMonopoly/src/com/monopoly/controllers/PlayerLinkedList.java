@@ -60,6 +60,10 @@ public class PlayerLinkedList {
 		}
 	}
 	
+	public Player peekNext() {
+
+	}
+
 	public int getSize() {
 		return this.size;
 	}

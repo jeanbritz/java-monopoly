@@ -2,7 +2,7 @@ package com.monopoly.controllers;
 
 import com.monopoly.AssetLoader;
 
-public class Referee implements Runnable {
+public class Banker implements Runnable {
 
 	private static final int FRAMES_PER_SECOND = 25;
 	private static final int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
@@ -13,7 +13,7 @@ public class Referee implements Runnable {
 	private PlayerLinkedList players = null;
 	
 	
-	public Referee() {
+	public Banker() {
 		players = new PlayerLinkedList();
 		Player p1 = new Player(this);
 		Player p2 = new Player(this);
@@ -38,8 +38,7 @@ public class Referee implements Runnable {
 		long nextGameTick = System.nanoTime() / 1000000;
 		long sleepTime;
 		boolean running = true;
-		int currentPlayerId = 0;
-		//currentPlayer = players.get(currentPlayerId);
+
 		currentPlayer = players.getNext();
 		while(running) {
 		
@@ -54,7 +53,7 @@ public class Referee implements Runnable {
 					} else {
 						// TODO: Should make a linked list of players or something to
 						// implement a more realistic model of handling each round
-						currentPlayerId++;
+
 						/*if(currentPlayerId >= players.size()) {
 							currentPlayerId = 0;
 						}*/
@@ -74,6 +73,10 @@ public class Referee implements Runnable {
 		return this.currentPlayer;
 	}
 	
+	public PlayerLinkedList getAllPlayers() {
+		return this.players;
+	}
+
 	private void endRound() {
 		currentRound++;
 	}

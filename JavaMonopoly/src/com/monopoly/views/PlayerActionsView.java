@@ -11,6 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+/**
+ * 
+ * @author Jean Britz
+ *
+ */
 public class PlayerActionsView extends AbstractView {
 
 	/**
@@ -18,29 +23,32 @@ public class PlayerActionsView extends AbstractView {
 	 */
 	private static final long serialVersionUID = 1L;
 		
-	JPanel panelInfo;
-	JPanel panelToken;
-	JPanel panelActionButtons;
+	private static JPanel panelInfo;
+	private static JPanel panelToken;
+	private static JPanel panelActionButtons;
 	
-	JLabel labelMoney;
-	JLabel labelJail;
-	JLabel labelToken;
+	private static JLabel labelMoney;
+	private static JLabel labelJail;
+	private static JLabel labelToken;
 	
-	JButton buttonBuy; 
-	JButton buttonRoll;
-	JButton buttonViewProperty;
-	JButton buttonEndTurn;
-	JButton buttonCheckRent;
+	private static JButton buttonBuy;
+	private static JButton buttonRoll;
+	private static JButton buttonEndTurn;
+	private static JButton buttonCheckRent;
 	
 	private PlayerActionListener actionlistener;
-	private IPlayerActionEvents actionEvents;
+	private PlayerActionEvents actionEvents;
 	
 	
 	public PlayerActionsView() {
 		super("Player Actions");
-		
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.AbstractView#initView()
+	 */
 	@Override
 	public void initView() {
 		setBounds(50, 660, 950, 150);
@@ -54,7 +62,6 @@ public class PlayerActionsView extends AbstractView {
 		labelToken = new JLabel("None");
 		buttonBuy = new JButton("Make offer");
 		buttonRoll = new JButton("Roll the dice");
-		buttonViewProperty = new JButton("View properties");
 		buttonEndTurn = new JButton("End Turn");
 		buttonCheckRent = new JButton("Check if someone owes me rent");
 		panelActionButtons.add(buttonBuy);
@@ -84,14 +91,19 @@ public class PlayerActionsView extends AbstractView {
 	 * 
 	 * @param actions
 	 */
-	public void setOnClickListener(IPlayerActionEvents actions) {
+	public void setOnClickListener(PlayerActionEvents actions) {
 		try {
-			actionEvents = (IPlayerActionEvents) actions;
+			actionEvents = (PlayerActionEvents) actions;
 		} catch(ClassCastException e) {
 			e.printStackTrace();
 		}
 	}	
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.AbstractView#updateView()
+	 */
 	@Override
 	public void updateView() {
 		
@@ -128,14 +140,14 @@ public class PlayerActionsView extends AbstractView {
 	}
 	
 	/**
-	 * Interface class which defines the callback methods
-	 * In this way the callback methods acts as an API and gives the
-	 * user the ability to defined the callback methods in the
-	 * class this view is declared in.
-	 * @author BritzJ
+	 * Interface class which defines the callback methods. In this way the
+	 * callback methods acts as an API and gives the user the ability to defined
+	 * the callback methods in the class this view is declared in.
+	 * 
+	 * @author Jean Britz
 	 *
 	 */
-	public  interface IPlayerActionEvents {
+	public  interface PlayerActionEvents {
 		public void onRollClick();
 		public void onEndTurnClick();
 		public void onBuyClick();

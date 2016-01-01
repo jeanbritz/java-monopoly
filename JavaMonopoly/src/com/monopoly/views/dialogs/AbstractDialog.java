@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import com.monopoly.views.FrontendViewable;
+import com.monopoly.views.intefaces.Viewable;
 
 /**
  * 
@@ -37,7 +37,7 @@ import com.monopoly.views.FrontendViewable;
  * @since 1.0
  *
  */
-public abstract class AbstractDialog<T> extends JDialog implements ActionListener, FrontendViewable {
+public abstract class AbstractDialog<T> extends JDialog implements ActionListener, Viewable {
 
 	/**
 	 * 

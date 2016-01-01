@@ -12,7 +12,7 @@ import com.monopoly.models.Dices;
 
 /**
  * 
- * @author BritzJ
+ * @author Jean Britz
  * @version 1.0
  * @since 1.0
  * 
@@ -24,20 +24,25 @@ public class DiceView extends AbstractView {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	JPanel panelDice;
+	private static JPanel panelDice;
 	
-	JLabel labelFirst;
-	JLabel labelSecond;
-	JLabel labelOutcome;
+	private static JLabel labelFirst;
+	private static JLabel labelSecond;
+	private static JLabel labelOutcome;
 			
-	ImageIcon imageFirst;
-	ImageIcon imageSecond;
+	private static ImageIcon imageFirst;
+	private static ImageIcon imageSecond;
 			
 	public DiceView() {
 		super("The Dices");
 		
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.AbstractView#initView()
+	 */
 	@Override
 	public void initView() {
 		labelOutcome = new JLabel("X");
@@ -52,7 +57,12 @@ public class DiceView extends AbstractView {
 		panelTop.add(panelDice,BorderLayout.CENTER);
 		panelTop.add(labelOutcome, BorderLayout.SOUTH);		
 	}
-		
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.AbstractView#updateView()
+	 */
 	@Override
 	public void updateView() {
 		//super.updateUI();
@@ -62,7 +72,5 @@ public class DiceView extends AbstractView {
 		labelOutcome.setText(String.valueOf(Dices.getInstance().getOutcome()));
 		panelTop.updateUI();
 	}
-	
-		
 	
 }

@@ -22,7 +22,7 @@ public class Player {
 	private Image token;
 	private int round;
 	
-	Player(Referee ref) {
+	Player(Banker ref) {
 		List<Property> records = AssetLoader.getAllPropertyRecords();
 		//propertyAt = AssetLoader.getAllPropertyRecords().get(0);
 		bankBalance = ref.INITIAL_BANK_BALANCE;
