@@ -15,9 +15,9 @@ public class Main {
 		feThread.start();
 
 		// Start the Referee
-		// Thread refThread = new Thread(ref);
-		// refThread.setName("The Referee");
-		// refThread.start();
+		Thread refThread = new Thread(ref);
+		refThread.setName("The Referee");
+		refThread.start();
 		
 
 	}

@@ -20,7 +20,7 @@ public class Player {
 	private int round;
 	
 	Player(Banker ref) {
-		List<Property> records = AssetLoader.getAllPropertyRecords();
+		List<Property> properties = AssetLoader.getAllPropertyRecords();
 		propertyAt = AssetLoader.getAllPropertyRecords().get(0);
 		bankBalance = ref.INITIAL_BANK_BALANCE;
 	}
@@ -100,6 +100,13 @@ public class Player {
 	
 	public int getRound() {
 		return this.round;
+	}
+
+	public void move(int spaces) {
+		int currentProp = propertyAt.getPId();
+		int nextProp = currentProp + spaces;
+		Property next = AssetLoader.getSingleProperty(nextProp);
+		propertyAt = next;
 	}
 
 	@Override

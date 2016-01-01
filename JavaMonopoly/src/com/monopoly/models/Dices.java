@@ -22,8 +22,9 @@ public class Dices {
 		return this.first == this.second;
 	}
 	
-	public void throwDices() {
+	public int throwDices() {
 		this.first = (int)(Math.random() * 6) + 1;
 		this.second = (int)(Math.random() * 6) + 1;
+		return getOutcome();
 	}
 }

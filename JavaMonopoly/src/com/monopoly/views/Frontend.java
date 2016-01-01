@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import com.monopoly.controllers.Banker;
 import com.monopoly.models.Dices;
@@ -67,7 +69,7 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 			nextGameTick += SKIP_TICKS;
 			sleepTime = nextGameTick - System.nanoTime() / 1000000;
 
-			if (sleepTime > 0) {
+			if (sleepTime > 0 && !banker.isBusy()) {
 				try {
 					Thread.sleep(sleepTime);
 					updateView();
@@ -100,12 +102,11 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 	@Override
 	public void initView() {
 
-		/*
-		 * try {
-		 * UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
-		 * catch (ClassNotFoundException | InstantiationException |
-		 * IllegalAccessException | UnsupportedLookAndFeelException ex) { }
-		 */
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+		    | UnsupportedLookAndFeelException ex) {
+		}
 
 		// Initialise the main frame
 		setTitle("Monopoly");
@@ -176,8 +177,8 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 	 */
 	@Override
 	public void update(Graphics g) {
-		super.update(g);
-		board.update(g);
+		// super.update(g);
+		// board.update(g);
 		// Where the actual animation comes
 		
 	}
@@ -192,7 +193,8 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 		@Override
 		public void onRollClick() {
 			System.out.println("Roll");
-			Dices.getInstance().throwDices();
+			int spaces = Dices.getInstance().throwDices();
+			banker.moveCurrentPlayer(spaces);
 			if(Dices.getInstance().hasThrownDouble()) {
 				System.out.println("You have thrown a double!!");
 			}

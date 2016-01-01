@@ -11,7 +11,7 @@ public class Banker implements Runnable {
 	
 	private Player currentPlayer = null;
 	private LinkedList players = null;
-	
+	private boolean busy = false;
 	
 	public Banker() {
 		players = new LinkedList();
@@ -69,6 +69,18 @@ public class Banker implements Runnable {
 		
 	}
 	
+	public boolean isBusy() {
+		return this.busy;
+	}
+
+	public void moveCurrentPlayer(int spaces) {
+		busy = true;
+		synchronized (this.currentPlayer) {
+			this.currentPlayer.move(spaces);
+		}
+		busy = false;
+	}
+
 	public Player getCurrentPlayer() {
 		return this.currentPlayer;
 	}

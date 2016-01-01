@@ -43,6 +43,16 @@ public class AssetLoader {
 				
 	}
 	
+	private static PropertyDbModel getPropertyModel() {
+		if (propertyModel == null) {
+			try {
+				propertyModel = new PropertyDbModel();
+			} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return propertyModel;
+	}
 	
 	/**
 	 * Helper function of displaying a dialog with a message
@@ -59,8 +69,8 @@ public class AssetLoader {
 	 * @throws NoSuchFieldException
 	 */
 	public static List<Property> getProperties() throws SQLException, ClassNotFoundException, NoSuchFieldException {
-		propertyModel = new PropertyDbModel();
-		List<Property> properties = propertyModel.getObjectModel(Property.class).getAll();
+
+		List<Property> properties = getPropertyModel().getObjectModel(Property.class).getAll();
 		return properties;
 		
 	}
@@ -113,17 +123,25 @@ public class AssetLoader {
 		
 		if(propertyRecords == null) {
 			try {
-				propertyModel = new PropertyDbModel();
-				propertyRecords = propertyModel.getObjectModel(Property.class).getAll();
-			} catch (SQLException | ClassNotFoundException | NoSuchFieldException e) {
+				propertyRecords = getPropertyModel().getObjectModel(Property.class).getAll();
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		return propertyRecords;
 		
 	}
-			
 	
+	public static Property getSingleProperty(int PId) {
+		Property found = null;
+		try {
+			getPropertyModel().getObjectModel(Property.class).getFirst("PId = " + PId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return found;
+	}
+
 	/**
 	 * 
 	 * @param resource

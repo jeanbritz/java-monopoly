@@ -65,12 +65,12 @@ public class DiceView extends AbstractView {
 	 */
 	@Override
 	public void updateView() {
-		//super.updateUI();
+
 		//ImageIcon iconFirst = new ImageIcon(IMAGE_FOLDER + this.first + ".jpg"); 
 		//labelFirst.setIcon(iconFirst);
 		//labelSecond.setIcon(new ImageIcon(IMAGE_FOLDER + this.second + ".jpg"));
 		labelOutcome.setText(String.valueOf(Dices.getInstance().getOutcome()));
-		panelTop.updateUI();
+
 	}
 	
 }
