@@ -10,11 +10,11 @@ public class Banker implements Runnable {
 	public int currentRound = 1;
 	
 	private Player currentPlayer = null;
-	private PlayerLinkedList players = null;
+	private LinkedList players = null;
 	
 	
 	public Banker() {
-		players = new PlayerLinkedList();
+		players = new LinkedList();
 		Player p1 = new Player(this);
 		Player p2 = new Player(this);
 		p1.setId(1);
@@ -39,7 +39,7 @@ public class Banker implements Runnable {
 		long sleepTime;
 		boolean running = true;
 
-		currentPlayer = players.getNext();
+		currentPlayer = players.moveToNext();
 		while(running) {
 		
 			nextGameTick += SKIP_TICKS;
@@ -73,7 +73,7 @@ public class Banker implements Runnable {
 		return this.currentPlayer;
 	}
 	
-	public PlayerLinkedList getAllPlayers() {
+	public LinkedList getPlayers() {
 		return this.players;
 	}
 

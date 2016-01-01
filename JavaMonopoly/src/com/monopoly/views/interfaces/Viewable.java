@@ -1,4 +1,4 @@
-package com.monopoly.views.intefaces;
+package com.monopoly.views.interfaces;
 
 /**
  * 

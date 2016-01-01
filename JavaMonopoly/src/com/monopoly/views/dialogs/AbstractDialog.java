@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import com.monopoly.views.intefaces.Viewable;
+import com.monopoly.views.interfaces.Viewable;
 
 /**
  * 

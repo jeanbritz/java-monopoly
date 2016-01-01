@@ -7,8 +7,9 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import com.monopoly.AssetLoader;
-import com.monopoly.controllers.PlayerLinkedList;
-import com.monopoly.views.intefaces.Animatable;
+import com.monopoly.controllers.LinkedList.Node;
+import com.monopoly.controllers.Player;
+import com.monopoly.views.interfaces.Animatable;
 
 public class BoardView extends JPanel implements Animatable {
 	
@@ -19,26 +20,27 @@ public class BoardView extends JPanel implements Animatable {
 	private BufferedImage image = null;
 	private int height = 0;
 	private int width = 0;
-	private PlayerLinkedList players;
+	private Node initNode;
 	
-	BoardView(PlayerLinkedList players) {
+	BoardView(Node initNode) {
 		super();
-		this.players = players;
+		this.initNode = initNode;
 		initView();
 		
 	}
 			
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, this);
-		if (players != null) {
-			for (int i = 0; i < players.getSize(); i++) {
-				Point pos = players.get(i).getPropertyAt().getLocation();
-				g.drawImage(players.get(i).getToken(), (int) pos.getX() + players.get(i).getId() * 3,
-				    (int) pos.getY() + players.get(i).getId() * 3,
+		Node currentNode = initNode;
+		while ((currentNode = currentNode.getNextNode()) != null) {
+
+			Player player = currentNode.getData();
+			Point pos = player.getPropertyAt().getLocation();
+			g.drawImage(player.getToken(), (int) pos.getX() + player.getId() * 3, (int) pos.getY() + player.getId() * 3,
 				    this);
 
-			}
 		}
+
 	}
 
 	@Override

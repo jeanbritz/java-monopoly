@@ -8,13 +8,11 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import com.monopoly.controllers.Banker;
 import com.monopoly.models.Dices;
 import com.monopoly.views.PlayerActionsView.PlayerActionEvents;
-import com.monopoly.views.intefaces.Viewable;
+import com.monopoly.views.interfaces.Viewable;
 
 /**
  * 
@@ -102,11 +100,12 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 	@Override
 	public void initView() {
 
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-		    | UnsupportedLookAndFeelException ex) {
-		}
+		/*
+		 * try {
+		 * UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
+		 * catch (ClassNotFoundException | InstantiationException |
+		 * IllegalAccessException | UnsupportedLookAndFeelException ex) { }
+		 */
 
 		// Initialise the main frame
 		setTitle("Monopoly");
@@ -115,7 +114,7 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 		setLocationRelativeTo(null);
 		setVisible(true);
 
-		board = new BoardView(banker.getAllPlayers());
+		board = new BoardView(banker.getPlayers().getInitNode());
 		dice = new DiceView();
 		propertyManager = new PropertyManagerView();
 		playerActions = new PlayerActionsView();

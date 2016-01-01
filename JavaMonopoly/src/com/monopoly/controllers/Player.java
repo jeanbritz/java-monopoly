@@ -1,11 +1,8 @@
 package com.monopoly.controllers;
 
 import java.awt.Image;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
-
-import javax.swing.ImageIcon;
 
 import com.monopoly.AssetLoader;
 import com.monopoly.models.persistent.Property;
@@ -24,10 +21,15 @@ public class Player {
 	
 	Player(Banker ref) {
 		List<Property> records = AssetLoader.getAllPropertyRecords();
-		//propertyAt = AssetLoader.getAllPropertyRecords().get(0);
+		propertyAt = AssetLoader.getAllPropertyRecords().get(0);
 		bankBalance = ref.INITIAL_BANK_BALANCE;
 	}
 	
+	Player(Banker ref, String name) {
+		this(ref);
+		this.name = name;
+	}
+
 	public Vector<Property> getOwnedProperties() {
 		return ownedProperties;
 	}
@@ -100,15 +102,11 @@ public class Player {
 		return this.round;
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
 		return "Player [id=" + id + ", name=" + name + ", propertyAt=" + propertyAt.getPId()
 				+ ", isInJail=" + isInJail + ", bankBalance=" + bankBalance
 				+ ", round=" + round + "]";
-	}*/
-	
-	
-	
-	
-		
+	}
+
 }

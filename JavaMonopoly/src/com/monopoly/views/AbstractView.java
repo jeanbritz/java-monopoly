@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-import com.monopoly.views.intefaces.Viewable;
+import com.monopoly.views.interfaces.Viewable;
 
 public abstract class AbstractView extends JPanel 
 											implements Viewable {
