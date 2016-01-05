@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import com.monopoly.AssetLoader;
+import com.monopoly.Asset;
 
 import za.co.neilson.sqlite.orm.DatabaseDriverInterface;
 import za.co.neilson.sqlite.orm.DatabaseInfo;
@@ -23,12 +23,12 @@ public abstract class AbstractDatabaseModel extends DatabaseModel<ResultSet, Has
 		
 	@Override
 	public String getDatabaseName() {
-		return AssetLoader.getDbName();
+		return Asset.getDbName();
 	}
 
 	@Override
 	public int getDatabaseVersion() {
-		return AssetLoader.getDbVersion();
+		return Asset.getDbVersion();
 	}
 
 	@Override

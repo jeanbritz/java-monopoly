@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.monopoly.AssetLoader;
-import com.monopoly.models.Dices;
+import com.monopoly.Asset;
+import com.monopoly.models.Dice;
 
 /**
  * 
@@ -32,9 +32,12 @@ public class DiceView extends AbstractView {
 			
 	private static ImageIcon imageFirst;
 	private static ImageIcon imageSecond;
-			
-	public DiceView() {
-		super("The Dices");
+
+	private Dice dice;
+
+	public DiceView(Dice dice) {
+		super("The Dice");
+		this.dice = dice;
 		
 	}
 	
@@ -49,7 +52,7 @@ public class DiceView extends AbstractView {
 		labelFirst = new JLabel();
 		labelSecond = new JLabel();
 		panelDice = new JPanel(new FlowLayout());
-		labelOutcome.setFont(AssetLoader.loadFont("h1"));
+		labelOutcome.setFont(Asset.loadFont("h1"));
 		labelOutcome.setHorizontalAlignment(JLabel.CENTER);
 		setBounds(660, 485, 340, 165);
 		panelDice.add(labelFirst);
@@ -69,7 +72,7 @@ public class DiceView extends AbstractView {
 		//ImageIcon iconFirst = new ImageIcon(IMAGE_FOLDER + this.first + ".jpg"); 
 		//labelFirst.setIcon(iconFirst);
 		//labelSecond.setIcon(new ImageIcon(IMAGE_FOLDER + this.second + ".jpg"));
-		labelOutcome.setText(String.valueOf(Dices.getInstance().getOutcome()));
+		// labelOutcome.setText(String.valueOf(Game.getDice().getOutcome()));
 
 	}
 	

@@ -11,11 +11,11 @@ public interface Viewable {
 	/**
 	 * Called when any view is being created on the frontend.
 	 */
-	public void initView();
+	void initView();
 	
 	/**
 	 * Called when a view needs to be updated on the frontend. Typically used for
 	 * any animations done on the frontend
 	 */
-	public void updateView();
+	void updateView();
 }

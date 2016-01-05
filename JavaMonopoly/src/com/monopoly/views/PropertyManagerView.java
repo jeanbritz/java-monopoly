@@ -18,7 +18,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.monopoly.AssetLoader;
+import com.monopoly.Asset;
 import com.monopoly.models.persistent.Property;
 import com.monopoly.views.dialogs.PropertyCardDialog;
 
@@ -67,7 +67,7 @@ public class PropertyManagerView extends AbstractView
 	public void initView() {
 		listAll = new JList<Property>();
 		try {
-			listAll.setListData(AssetLoader.getOwnablePropertyCards());
+			listAll.setListData(Asset.getOwnablePropertyCards());
 		} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -161,14 +161,14 @@ public class PropertyManagerView extends AbstractView
 				boolean isSelected, boolean cellHasFocus) {
 							
 				if(property.getType().getPtName().equals("Station")) {
-					setIcon(AssetLoader.loadImageIcon("train"));
+					setIcon(Asset.loadImageIcon("train"));
 				} else if (property.getPName().equals("Water")) {
-					setIcon(AssetLoader.loadImageIcon("waterboard"));
+					setIcon(Asset.loadImageIcon("waterboard"));
 				} else if (property.getPName().equals("Electricity")) {
-					setIcon(AssetLoader.loadImageIcon("electricity"));
+					setIcon(Asset.loadImageIcon("electricity"));
 				} else {
 					// Most probably a Street, Avenue, etc...
-					setIcon(AssetLoader.loadImageIcon("property"));
+					setIcon(Asset.loadImageIcon("property"));
 				}
 				
 				buttonView.setEnabled(true);

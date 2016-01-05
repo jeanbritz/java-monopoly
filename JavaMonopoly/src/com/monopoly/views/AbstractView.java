@@ -11,6 +11,11 @@ import javax.swing.border.TitledBorder;
 
 import com.monopoly.views.interfaces.Viewable;
 
+/**
+ * 
+ * @author Jean
+ *
+ */
 public abstract class AbstractView extends JPanel 
 											implements Viewable {
 
@@ -25,31 +30,47 @@ public abstract class AbstractView extends JPanel
 	
 	Border border;
 	TitledBorder titledBorder;
-		
-	Font fontTitledBorder;
+	Font font;
 	
 	
-	
+	/**
+	 * 
+	 * @param title
+	 */
 	public AbstractView(String title) {
 		super();
 		
 		setLayout(new BorderLayout());
 		panelTop = new JPanel(new BorderLayout());
-		fontTitledBorder = new Font ("Arial", 1, 15);
+		font = new Font ("Arial", 1, 15);
 		border = BorderFactory.createMatteBorder(5, 5, 5, 5, BORDER_COLOUR);
-		titledBorder = new TitledBorder(border, title, 1, 1, fontTitledBorder, Color.black);
+		titledBorder = new TitledBorder(border, title, 1, 1, font, Color.black);
 		panelTop.setBorder(titledBorder);
 		add(panelTop, BorderLayout.CENTER);
 		initView();
 	}
 	
+	/**
+	 * 
+	 * @param title
+	 */
 	public void setBorderTitle(String title) {
 		titledBorder.setTitle(title);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.interfaces.Viewable#initView()
+	 */
 	@Override
 	public abstract void initView();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.monopoly.views.interfaces.Viewable#updateView()
+	 */
 	@Override
 	public abstract void updateView();
 	

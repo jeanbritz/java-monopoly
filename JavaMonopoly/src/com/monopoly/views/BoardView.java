@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import com.monopoly.AssetLoader;
+import com.monopoly.Asset;
 import com.monopoly.controllers.LinkedList.Node;
 import com.monopoly.controllers.Player;
 import com.monopoly.views.interfaces.Animatable;
@@ -45,7 +45,7 @@ public class BoardView extends JPanel implements Animatable {
 
 	@Override
 	public void initView() {
-		image = AssetLoader.loadImage("Board");
+		image = Asset.loadImage("Board");
 		height = image.getHeight();
 		width = image.getWidth();
 		setSize(height, width);

@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import com.monopoly.AssetLoader;
+import com.monopoly.Asset;
 import com.monopoly.models.persistent.Property;
 import com.monopoly.models.persistent.Tariff;
 
@@ -137,12 +137,12 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 	 */
 	@Override
 	public void initView() {
-		labelHeader = new CenteredLabel("Header", AssetLoader.loadFont("h2"));
+		labelHeader = new CenteredLabel("Header", Asset.loadFont("h2"));
 
 		tableTariffs = new JTable();
 		tableTariffs.setGridColor(Color.white);
 
-		labelSmallNote = new CenteredLabel("Small Note", 70, AssetLoader.loadFont("h3"));
+		labelSmallNote = new CenteredLabel("Small Note", 70, Asset.loadFont("h3"));
 		labelHouseCost = new CenteredLabel("Cost of House", 70);
 		labelMortage = new CenteredLabel("Mortage", null);
 		

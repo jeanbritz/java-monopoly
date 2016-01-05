@@ -14,6 +14,10 @@ public class PropertyType {
 	private String PtName;
 	private long PtOwnable;
 	
+	PropertyType() {
+
+	}
+
 	/**
 	 * 
 	 * @return

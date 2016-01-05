@@ -1,6 +1,7 @@
 package com.monopoly.controllers;
 
-import com.monopoly.AssetLoader;
+import com.monopoly.Asset;
+import com.monopoly.models.Dice;
 
 public class Banker implements Runnable {
 
@@ -11,18 +12,21 @@ public class Banker implements Runnable {
 	
 	private Player currentPlayer = null;
 	private LinkedList players = null;
+	private static Dice dice = new Dice();
 	private boolean busy = false;
 	
 	public Banker() {
 		players = new LinkedList();
+		dice = new Dice();
 		Player p1 = new Player(this);
 		Player p2 = new Player(this);
 		p1.setId(1);
 		p2.setId(2);
+
 		p1.setName("Jean");
 		p2.setName("Paul");
-		p1.setToken(AssetLoader.loadImage("token1"));
-		p2.setToken(AssetLoader.loadImage("token2"));
+		p1.setToken(Asset.loadImage("token1"));
+		p2.setToken(Asset.loadImage("token2"));
 		
 		p1.setBankBalance(INITIAL_BANK_BALANCE);
 		p1.setBankBalance(INITIAL_BANK_BALANCE);
@@ -75,10 +79,14 @@ public class Banker implements Runnable {
 
 	public void moveCurrentPlayer(int spaces) {
 		busy = true;
-		synchronized (this.currentPlayer) {
+
 			this.currentPlayer.move(spaces);
-		}
+
 		busy = false;
+	}
+
+	public Dice getDice() {
+		return dice;
 	}
 
 	public Player getCurrentPlayer() {

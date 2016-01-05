@@ -12,7 +12,9 @@ public class CenteredLabel extends JLabel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private int preferredHeight = 50;
+	private static final int DEFAULT_PREFERRED_HEIGHT = 50;
+
+	private int preferredHeight = DEFAULT_PREFERRED_HEIGHT;
 
 	public CenteredLabel() {
 		super();
@@ -30,7 +32,7 @@ public class CenteredLabel extends JLabel {
 
 	public CenteredLabel(String text, int preferredHeight, Font font) {
 		super("<html>" + text + "</html>");
-		if (preferredHeight > 50) {
+		if (preferredHeight > DEFAULT_PREFERRED_HEIGHT) {
 			this.preferredHeight = preferredHeight;
 		}
 		if (font != null) {

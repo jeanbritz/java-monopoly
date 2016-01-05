@@ -38,7 +38,11 @@ public class Property {
 	/** Auxiliary fields **/
 	private Point location;
 	private Color color;
+
+	Property() {
 		
+	}
+
 	/**
 	 * Returns the property's unique id
 	 * 
@@ -154,7 +158,7 @@ public class Property {
 	 */
 	public Color getColour() {
 		if (PRgbColor != null && !PRgbColor.isEmpty()) {
-			String comp[] = PRgbColor.split("[,]");
+			String comp[] = getPRgbColor().split("[,]");
 			if(color == null) {
 			color = new Color(Integer.valueOf(comp[0]), 
 							 Integer.valueOf(comp[1]), 

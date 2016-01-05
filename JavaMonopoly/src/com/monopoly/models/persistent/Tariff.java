@@ -14,6 +14,10 @@ public class Tariff {
 	private long TCode;
 	private long TCost;
 
+	Tariff() {
+
+	}
+
 	/**
 	 * 
 	 * @return

@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.monopoly.Game;
 import com.monopoly.controllers.Banker;
-import com.monopoly.models.Dices;
 import com.monopoly.views.PlayerActionsView.PlayerActionEvents;
 import com.monopoly.views.interfaces.Viewable;
 
@@ -34,6 +34,8 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 
+	private Banker banker;
+
 	private BoardView board;
 	private DiceView dice;
 	private PropertyManagerView propertyManager;
@@ -41,11 +43,14 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 	private boolean running = false;
 	private JPanel panelRight = new JPanel();
 	private BoxLayout layoutRight = new BoxLayout(panelRight, BoxLayout.PAGE_AXIS);
-	private Banker banker;
 	
+
 	public Frontend(Banker banker) {
 		this.banker = banker;
-		initView();
+		board = new BoardView(Game.getPlayers().getInitNode());
+		dice = new DiceView(Game.getDice());
+		propertyManager = new PropertyManagerView();
+		playerActions = new PlayerActionsView();
 	}
 
 	/**
@@ -63,13 +68,13 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 		long nextGameTick = System.nanoTime() / 1000000;
 		long sleepTime;
 		running = true;
-
+		initView();
 		while (running) {
 
 			nextGameTick += SKIP_TICKS;
 			sleepTime = nextGameTick - System.nanoTime() / 1000000;
 
-			if (sleepTime > 0 && !banker.isBusy()) {
+			if (sleepTime > 0) {
 				try {
 					Thread.sleep(sleepTime);
 					updateView();
@@ -97,7 +102,7 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.monopoly.views.FrontendViewable#initView()
+	 * @see com.monopoly.views.Viewable#initView()
 	 */
 	@Override
 	public void initView() {
@@ -109,16 +114,12 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 		}
 
 		// Initialise the main frame
-		setTitle("Monopoly");
+		setTitle(Game.getTitle());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		setLocationRelativeTo(null);
 		setVisible(true);
 
-		board = new BoardView(banker.getPlayers().getInitNode());
-		dice = new DiceView();
-		propertyManager = new PropertyManagerView();
-		playerActions = new PlayerActionsView();
 		playerActions.setOnClickListener(new PlayerActions());
 		getContentPane().setLayout(new BorderLayout(2, 2));
 		getContentPane().add(board, BorderLayout.CENTER);
@@ -128,9 +129,14 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 		panelRight.setSize((int) (0.3 * WINDOW_WIDTH), WINDOW_HEIGHT);
 		getContentPane().add(panelRight, BorderLayout.EAST);
 		getContentPane().add(playerActions, BorderLayout.PAGE_END);
+		
+		board.initView();
+		propertyManager.initView();
+		dice.initView();
+		playerActions.initView();
+
 		pack();
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		
 	}
 
 	/*
@@ -193,9 +199,9 @@ public class Frontend extends JFrame implements ActionListener, Viewable, Runnab
 		@Override
 		public void onRollClick() {
 			System.out.println("Roll");
-			int spaces = Dices.getInstance().throwDices();
+			int spaces = Game.getDice().roll();
 			banker.moveCurrentPlayer(spaces);
-			if(Dices.getInstance().hasThrownDouble()) {
+			if (Game.getDice().hasThrownDouble()) {
 				System.out.println("You have thrown a double!!");
 			}
 		}

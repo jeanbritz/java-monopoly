@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.util.List;
 import java.util.Vector;
 
-import com.monopoly.AssetLoader;
+import com.monopoly.Asset;
 import com.monopoly.models.persistent.Property;
 
 
@@ -20,8 +20,8 @@ public class Player {
 	private int round;
 	
 	Player(Banker ref) {
-		List<Property> properties = AssetLoader.getAllPropertyRecords();
-		propertyAt = AssetLoader.getAllPropertyRecords().get(0);
+		List<Property> properties = Asset.getAllPropertyRecords();
+		// propertyAt = Asset.getAllPropertyRecords().get(0);
 		bankBalance = ref.INITIAL_BANK_BALANCE;
 	}
 	
@@ -105,7 +105,7 @@ public class Player {
 	public void move(int spaces) {
 		int currentProp = propertyAt.getPId();
 		int nextProp = currentProp + spaces;
-		Property next = AssetLoader.getSingleProperty(nextProp);
+		Property next = Asset.getSingleProperty(nextProp);
 		propertyAt = next;
 	}
 

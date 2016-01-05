@@ -20,14 +20,14 @@ import com.monopoly.models.persistent.Property;
 
 /**
  * 
- * Load external resources into Java objects
+ * Retrieves external resources and convert them into Java objects
  * 
  * @author Jean Britz
  * @version 1.0
  * @since 1.0
  */
 
-public class AssetLoader {
+public class Asset {
 	
 	private static PropertyDbModel propertyModel;
 	private static CardDbModel cardDbModel;
@@ -38,11 +38,16 @@ public class AssetLoader {
 	
 	private static List<Property> propertyRecords = null;
 	private static List<Card> chanceCardRecords = null;
-	
-	protected AssetLoader() {
+
+
+	protected Asset() {
 				
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private static PropertyDbModel getPropertyModel() {
 		if (propertyModel == null) {
 			try {
@@ -58,7 +63,7 @@ public class AssetLoader {
 	 * Helper function of displaying a dialog with a message
 	 */
 	public static void showErrorMessage(String text) {
-		JOptionPane.showMessageDialog(null, text, "Monopoly", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(null, text, Game.getTitle(), JOptionPane.WARNING_MESSAGE);
 	}
 	
 	/**
@@ -118,27 +123,25 @@ public class AssetLoader {
 	/**
 	 * @return
 	 */
-	public static  List<Property> getAllPropertyRecords() {
-		
-		
-		if(propertyRecords == null) {
+	public static List<Property> getAllPropertyRecords() {
 			try {
 				propertyRecords = getPropertyModel().getObjectModel(Property.class).getAll();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
+
 		return propertyRecords;
 		
 	}
 	
 	public static Property getSingleProperty(int PId) {
 		Property found = null;
-		try {
-			getPropertyModel().getObjectModel(Property.class).getFirst("PId = " + PId);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		// try {
+		// getPropertyModel().getObjectModel(Property.class).getFirst("PId = " +
+		// PId);
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// }
 		return found;
 	}
 
