@@ -1,12 +1,10 @@
-package com.monopoly.models.db;
+package za.co.geskroef.monopoly.model.db;
 
-import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import com.monopoly.Asset;
-
+import za.co.geskroef.monopoly.Asset;
 import za.co.neilson.sqlite.orm.DatabaseDriverInterface;
 import za.co.neilson.sqlite.orm.DatabaseInfo;
 import za.co.neilson.sqlite.orm.DatabaseModel;
@@ -14,10 +12,10 @@ import za.co.neilson.sqlite.orm.ObjectModel;
 import za.co.neilson.sqlite.orm.jdbc.JdbcObjectModel;
 import za.co.neilson.sqlite.orm.jdbc.JdbcSqliteDatabaseDriverInterface;
 
-public abstract class AbstractDatabaseModel extends DatabaseModel<ResultSet, HashMap<String, Object>> {
+abstract class AbstractDatabaseModel extends DatabaseModel<ResultSet, HashMap<String, Object>> {
 
-	public AbstractDatabaseModel(Object[] args) throws SQLException, ClassNotFoundException, NoSuchFieldException {
-		super((Object[]) null);
+	protected AbstractDatabaseModel(Object[] args) throws SQLException, ClassNotFoundException, NoSuchFieldException {
+		super((Object[]) args);
 		
 	}
 		

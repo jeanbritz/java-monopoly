@@ -1,14 +1,13 @@
-package com.monopoly.models.db;
+package za.co.geskroef.monopoly.model.db;
 
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import com.monopoly.models.persistent.Property;
-import com.monopoly.models.persistent.PropertyType;
-import com.monopoly.models.persistent.Tariff;
-
+import za.co.geskroef.monopoly.model.persistent.Property;
+import za.co.geskroef.monopoly.model.persistent.PropertyType;
+import za.co.geskroef.monopoly.model.persistent.Tariff;
 import za.co.neilson.sqlite.orm.ObjectModel;
 import za.co.neilson.sqlite.orm.jdbc.JdbcObjectModel;
 
@@ -16,7 +15,7 @@ import za.co.neilson.sqlite.orm.jdbc.JdbcObjectModel;
 public class PropertyDbModel extends AbstractDatabaseModel {
 
 	public PropertyDbModel() throws SQLException, ClassNotFoundException, NoSuchFieldException {
-		super((Object[]) null);
+		super(null);
 		
 	}
 

@@ -1,4 +1,4 @@
-package com.monopoly.models.persistent;
+package za.co.geskroef.monopoly.model.persistent;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class Card {
 
 	/** Database foreign fields **/
 	private ArrayList<CardAction> action;
-
+	
 	/**
 	 * 
 	 * @return
@@ -24,7 +24,7 @@ public class Card {
 	public int getCId() {
 		return CId;
 	}
-
+	
 	/**
 	 * 
 	 * @return
@@ -32,7 +32,7 @@ public class Card {
 	public String getCGroup() {
 		return CGroup;
 	}
-
+	
 	/**
 	 * 
 	 * @return
@@ -48,7 +48,7 @@ public class Card {
 	public String getCParamValues() {
 		return CParamValues;
 	}
-
+	
 	/**
 	 * 
 	 * @return
@@ -56,7 +56,7 @@ public class Card {
 	public String getCMessage() {
 		return CMessage;
 	}
-
+	
 	/**
 	 * 
 	 * @return

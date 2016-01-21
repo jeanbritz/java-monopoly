@@ -1,4 +1,4 @@
-package com.monopoly.models.persistent;
+package za.co.geskroef.monopoly.model.persistent;
 
 import za.co.neilson.sqlite.orm.annotations.ForeignKey;
 import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
@@ -19,7 +19,7 @@ public class CardAction {
 	public int getCaId() {
 		return CaId;
 	}
-
+	
 	/**
 	 * 
 	 * @return
@@ -27,7 +27,7 @@ public class CardAction {
 	public String getCaAction() {
 		return CaAction;
 	}
-
+	
 	/**
 	 * 
 	 * @return

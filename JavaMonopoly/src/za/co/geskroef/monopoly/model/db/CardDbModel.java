@@ -1,13 +1,12 @@
-package com.monopoly.models.db;
+package za.co.geskroef.monopoly.model.db;
 
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import com.monopoly.models.persistent.Card;
-import com.monopoly.models.persistent.CardAction;
-
+import za.co.geskroef.monopoly.model.persistent.Card;
+import za.co.geskroef.monopoly.model.persistent.CardAction;
 import za.co.neilson.sqlite.orm.ObjectModel;
 import za.co.neilson.sqlite.orm.jdbc.JdbcObjectModel;
 
