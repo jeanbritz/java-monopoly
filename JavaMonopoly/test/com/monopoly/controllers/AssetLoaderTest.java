@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import za.co.geskroef.monopoly.Asset;
-import za.co.geskroef.monopoly.model.persistent.Card;
-import za.co.geskroef.monopoly.model.persistent.Property;
+import com.britzj.monopoly.Asset;
+import com.britzj.monopoly.model.persistent.Card;
+import com.britzj.monopoly.model.persistent.Property;
 
 public class AssetLoaderTest {
 

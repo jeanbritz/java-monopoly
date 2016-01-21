@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import za.co.geskroef.monopoly.controller.Player;
-import za.co.geskroef.monopoly.util.LinkedList;
-import za.co.geskroef.monopoly.util.LinkedList.Node;
+import com.britzj.monopoly.controller.Player;
+import com.britzj.monopoly.util.LinkedList;
+import com.britzj.monopoly.util.LinkedList.Node;
 
 public class LinkedListTest {
 
