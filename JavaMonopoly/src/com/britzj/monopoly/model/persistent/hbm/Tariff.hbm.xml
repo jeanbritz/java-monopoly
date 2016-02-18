@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 18, 2016 9:24:40 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.britzj.monopoly.model.persistent.Tariff" table="TARIFF">
+        <id name="TId" type="long">
+            <column name="TID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="property" class="com.britzj.monopoly.model.persistent.Property" fetch="join">
+            <column name="PROPERTY" />
+        </many-to-one>
+        <property name="TCode" type="long">
+            <column name="TCODE" />
+        </property>
+        <property name="TCost" type="long">
+            <column name="TCOST" />
+        </property>
+    </class>
+</hibernate-mapping>

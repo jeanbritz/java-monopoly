@@ -22,7 +22,7 @@ public class Player implements PlayerActionEvents {
 	private int round;
 	
 	Player(Banker banker) {
-		List<Property> properties = Asset.getAllPropertyRecords();
+		List<Property> properties = Asset.getProperties();
 		// propertyAt = Asset.getAllPropertyRecords().get(0);
 		bankBalance = banker.INITIAL_BANK_BALANCE;
 	}

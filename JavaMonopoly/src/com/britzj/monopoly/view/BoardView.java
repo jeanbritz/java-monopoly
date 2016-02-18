@@ -1,7 +1,6 @@
 package com.britzj.monopoly.view;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -38,9 +37,10 @@ public class BoardView extends JPanel implements Animatable {
 		while ((currentNode = currentNode.getNextNode()) != null) {
 
 			Player player = currentNode.getData();
-			Point pos = player.getPropertyAt().getLocation();
-			g.drawImage(player.getToken(), (int) pos.getX() + player.getId() * 3, (int) pos.getY() + player.getId() * 3,
-				    this);
+			// Point pos = player.getPropertyAt().getLocation();
+			// g.drawImage(player.getToken(), (int) pos.getX() + player.getId() * 3,
+			// (int) pos.getY() + player.getId() * 3,
+			// this);
 
 		}
 

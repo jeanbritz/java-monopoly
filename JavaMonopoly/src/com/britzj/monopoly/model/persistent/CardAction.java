@@ -1,13 +1,8 @@
 package com.britzj.monopoly.model.persistent;
 
-import za.co.neilson.sqlite.orm.annotations.ForeignKey;
-import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
-
 public class CardAction {
 
 	/** Database table fields **/
-	@PrimaryKey(autoIncrement = true)
-	@ForeignKey(table = "Card", column = "CCaId", parentReference = "action")
 	private int CaId;
 	private String CaAction;
 	private String CaParams;

@@ -160,7 +160,7 @@ public class PropertyManagerView extends AbstractView
 				JList<? extends Property> list, Property property, int index,
 				boolean isSelected, boolean cellHasFocus) {
 							
-				if(property.getType().getPtName().equals("Station")) {
+			if (property.getPtName().equals("Station")) {
 					setIcon(Asset.loadImageIcon("train"));
 				} else if (property.getPName().equals("Water")) {
 					setIcon(Asset.loadImageIcon("waterboard"));

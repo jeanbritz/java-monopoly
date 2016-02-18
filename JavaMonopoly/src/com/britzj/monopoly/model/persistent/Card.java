@@ -1,13 +1,8 @@
 package com.britzj.monopoly.model.persistent;
 
-import java.util.ArrayList;
-
-import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
-
 public class Card {
 
 	/** Database table fields **/
-	@PrimaryKey(autoIncrement = true)
 	private int CId;
 	private String CGroup;
 	private int CCaId;
@@ -15,7 +10,7 @@ public class Card {
 	private String CMessage;
 
 	/** Database foreign fields **/
-	private ArrayList<CardAction> action;
+	// private ArrayList<CardAction> action;
 	
 	/**
 	 * 
@@ -61,8 +56,8 @@ public class Card {
 	 * 
 	 * @return
 	 */
-	public ArrayList<CardAction> getAction() {
-		return action;
-	}
+	/*
+	 * public ArrayList<CardAction> getAction() { return action; }
+	 */
 
 }

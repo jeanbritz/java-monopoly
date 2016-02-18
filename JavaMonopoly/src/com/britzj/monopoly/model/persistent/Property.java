@@ -2,7 +2,6 @@ package com.britzj.monopoly.model.persistent;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
 
 /**
  * Each instance of this class represents each of the 40 spaces on the Monopoly
@@ -15,24 +14,31 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 1.0
  */
+
+
 public class Property {
 	
 	/** Database table fields **/
-
 	private int PId;
+
 	private String PName;
-	private long PPtId;
+
+	private String PtName;
+
 	private long PCost;
+
 	private long PHouseCost;
+
 	private long PMortageVal;
+
 	private String PRgbColor;
+
 	private int PPosX;
+
 	private int PPosY;
-	
-	/** Database foreign fields **/
-	private ArrayList<PropertyType> type;
-	private ArrayList<Tariff> tariffs;
-	
+
+	private int PtOwnable;
+
 	/** Auxiliary fields **/
 	private Point location;
 	private Color color;
@@ -57,16 +63,6 @@ public class Property {
 	 */
 	public String getPName() {
 		return PName;
-	}
-
-	/**
-	 * Returns the Property's type id
-	 * 
-	 * @return PPtId column's row value
-	 * @see {@link Property#getType()}
-	 */
-	public long getPPtId() {
-		return PPtId;
 	}
 
 	/**
@@ -127,15 +123,31 @@ public class Property {
 		return PPosY;
 	}
 
+	public String getPtName() {
+		return PtName;
+	}
+
+	public void setPtName(String ptName) {
+		PtName = ptName;
+	}
+
+	public int getPtOwnable() {
+		return PtOwnable;
+	}
+
+	public void setPtOwnable(int ptOwnable) {
+		PtOwnable = ptOwnable;
+	}
+
 	/**
 	 * Return info about the type of property. In other words, PPtId foreign key's
 	 * corresponding row value in the PropertyType table.
 	 * 
 	 * @return {@link PropertyType}
 	 */
-	public PropertyType getType() {
-		return type.get(0);
-	}
+	// public PropertyType getType() {
+	// return type.get(0);
+	// }
 
 	/**
 	 * Returns all tariffs in terms of renting rates when houses or a hotel are on
@@ -144,9 +156,9 @@ public class Property {
 	 * @return (if any) Array of {@link Tariff} objects, which are applicable to
 	 *         this property.
 	 */
-	public ArrayList<Tariff> getTariffs() {
-		return tariffs;
-	}
+	// public ArrayList<Tariff> getTariffs() {
+	// return tariffs;
+	// }
 
 	/**
 	 * Returns the color of the property, if it doesn't have a color it returns
@@ -154,20 +166,19 @@ public class Property {
 	 * 
 	 * @return {@link Color}
 	 */
+	
 	public Color getColour() {
 		if (PRgbColor != null && !PRgbColor.isEmpty()) {
 			String comp[] = getPRgbColor().split("[,]");
-			if(color == null) {
-			color = new Color(Integer.valueOf(comp[0]), 
-							 Integer.valueOf(comp[1]), 
-							 Integer.valueOf(comp[2]));
+			if (color == null) {
+				color = new Color(Integer.valueOf(comp[0]), Integer.valueOf(comp[1]), Integer.valueOf(comp[2]));
 			}
 		} else {
 			return Color.white;
 		}
 		return color;
 	}
-	
+
 	/**
 	 * Returns a {@link Point} object of the physical location of the property on
 	 * the board.
@@ -175,34 +186,24 @@ public class Property {
 	 * @return {@link Point} object, which contains X-Y co-ordinates of the
 	 *         property's location
 	 */
+	
 	public Point getLocation() {
-		if(location == null) {
-		location = new Point(PPosX, PPosY);
+		if (location == null) {
+			location = new Point(PPosX, PPosY);
 		}
 		return location;
 	}
-	
+
 	/**
 	 * Returns a boolean value which states if this property can be owned by a
 	 * player
 	 * 
 	 * @return true - It can be owned/bought, false - it cannot be owned/bought
 	 */
-	public boolean isOwnable() {
-		if (type != null) {
-			return type.get(0).getPtOwnable();
-		}
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+	
 	@Override
 	public String toString() {
-		return getPName() + ' ' + type.get(0).getPtName();
+		return getPName() + ' ' + getPtName();
 	}
 
 }

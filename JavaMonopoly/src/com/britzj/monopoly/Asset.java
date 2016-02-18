@@ -13,10 +13,12 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import com.britzj.monopoly.model.db.CardDbModel;
-import com.britzj.monopoly.model.db.PropertyDbModel;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+
 import com.britzj.monopoly.model.persistent.Card;
 import com.britzj.monopoly.model.persistent.Property;
+import com.britzj.monopoly.util.HibernateUtil;
 
 /**
  * 
@@ -30,8 +32,6 @@ import com.britzj.monopoly.model.persistent.Property;
 public class Asset {
 	
 
-	private static CardDbModel cardDbModel;
-	
 	private static final String ASSET_FOLDER = System.getProperty("user.dir") + File.separatorChar +"assets";
 	private static final String DB_FILENAME = "database.db"; 
 	private static final int DB_VERSION = 1;
@@ -58,11 +58,13 @@ public class Asset {
 	 * @throws ClassNotFoundException
 	 * @throws NoSuchFieldException
 	 */
-	public static List<Property> getProperties(PropertyDbModel model)
-	    throws SQLException, ClassNotFoundException, NoSuchFieldException {
-		PropertyDbModel propertyModel = model;
-		List<Property> properties = propertyModel.getObjectModel(Property.class).getAll();
-		return properties;
+	@SuppressWarnings("unchecked")
+	public static List<Property> getProperties() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		SQLQuery q = session.createSQLQuery(
+		    "select PId,PName,PtName,PCost,PHouseCost,PMortageVal,PRgbColor,PPosX,PPosY,PtOwnable from Property inner join PropertyType on (PtId = PPtId)");
+		q.addEntity(Property.class);
+		return q.list();
 		
 	}
 	
@@ -74,11 +76,11 @@ public class Asset {
 	 * @throws SQLException
 	 */
 	public static Vector<Property> getOwnablePropertyCards() throws ClassNotFoundException, NoSuchFieldException, SQLException {
-		List<Property> props = getProperties(new PropertyDbModel());
+		List<Property> props = getProperties();
 		Vector<Property> result = new Vector<Property>(4);
 		if (props != null) {
 			for (Property prop : props) {
-				if (prop.isOwnable()) {
+				if (prop.getPtOwnable() != 0) {
 					result.addElement(prop);
 				}
 			}
@@ -95,30 +97,16 @@ public class Asset {
 	 * @throws SQLException
 	 */
 	public static List<Card> getChanceCards() {
-		try {
-			cardDbModel = new CardDbModel();
-			if (chanceCardRecords == null) {
-				chanceCardRecords = cardDbModel.getObjectModel(Card.class).getAll();
-			}
-		} catch (ClassNotFoundException | NoSuchFieldException | SQLException e) {
-			e.printStackTrace();
-		}
+		/*
+		 * try {
+		 * 
+		 * if (chanceCardRecords == null) { chanceCardRecords =
+		 * cardDbModel.getObjectModel(Card.class).getAll(); } } catch
+		 * (ClassNotFoundException | NoSuchFieldException | SQLException e) {
+		 * e.printStackTrace(); }
+		 */
 
 		return chanceCardRecords;
-		
-	}
-	
-	/**
-	 * @return
-	 */
-	public static List<Property> getAllPropertyRecords() {
-		try {
-			propertyRecords = getProperties(new PropertyDbModel());
-		} catch (SQLException | ClassNotFoundException | NoSuchFieldException e) {
-			e.printStackTrace();
-		}
-
-		return propertyRecords;
 		
 	}
 	

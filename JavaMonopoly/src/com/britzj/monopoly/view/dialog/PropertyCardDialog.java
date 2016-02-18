@@ -60,7 +60,7 @@ public class PropertyCardDialog extends AbstractDialog<Property> {
 		labelHeader.setText(property.toString());
 		getHeaderPanel().setBackground(property.getColour());
 
-		String type = data.getType().getPtName();
+		String type = property.getPtName();
 
 		if (type.equalsIgnoreCase("Station")) {
 			setStationPropertyData(data);

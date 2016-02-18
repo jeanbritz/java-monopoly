@@ -1,17 +1,22 @@
 package com.britzj.monopoly.model.persistent;
 
-import za.co.neilson.sqlite.orm.annotations.ForeignKey;
-import za.co.neilson.sqlite.orm.annotations.PrimaryKey;
-
 public class Tariff {
 	
-	@PrimaryKey(autoIncrement = true)
+
 	private long TId;
 	
-	@ForeignKey(table = "Property", column = "PId", parentReference = "tariffs")
-	private long TPId;
+
+	private Property property;
+
+
 	private long TCode;
+
+
 	private long TCost;
+
+	Tariff() {
+
+	}
 
 	public long getTId() {
 		return TId;
@@ -21,12 +26,12 @@ public class Tariff {
 		TId = tId;
 	}
 
-	public long getTPId() {
-		return TPId;
+	public Property getProperty() {
+		return this.property;
 	}
 
-	public void setTPId(long tPId) {
-		TPId = tPId;
+	public void setProperty(Property property) {
+		this.property = property;
 	}
 
 	public long getTCode() {
