@@ -105,8 +105,8 @@ public class Player implements PlayerActionEvents {
 	}
 
 	public void move(int spaces) {
-		int currentProp = propertyAt.getPId();
-		int nextProp = currentProp + spaces;
+		long currentProp = propertyAt.getPId();
+		long nextProp = currentProp + spaces;
 		Property next = Asset.getSingleProperty(nextProp);
 		propertyAt = next;
 	}

@@ -1,17 +1,29 @@
 package com.britzj.monopoly.model.persistent;
 
-public class Tariff {
-	
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Tariff")
+public class Tariff {
+
+	@Id
+	@Column(name = "TId")
 	private long TId;
 	
-
+	@ManyToOne
+	@JoinColumn(name = "TPId")
 	private Property property;
 
 
+	@Column(name = "TCode")
 	private long TCode;
 
-
+	@Column(name = "TCost")
 	private long TCost;
 
 	Tariff() {
@@ -26,14 +38,13 @@ public class Tariff {
 		TId = tId;
 	}
 
-	public Property getProperty() {
-		return this.property;
-	}
+	// public int getTPId() {
+	// return TPId;
+	// }
 
-	public void setProperty(Property property) {
-		this.property = property;
-	}
-
+	// public void setTPId(int tPId) {
+	// TPId = tPId;
+	// }
 	public long getTCode() {
 		return TCode;
 	}

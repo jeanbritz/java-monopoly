@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import org.hibernate.SQLQuery;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import com.britzj.monopoly.model.persistent.Card;
@@ -33,8 +33,6 @@ public class Asset {
 	
 
 	private static final String ASSET_FOLDER = System.getProperty("user.dir") + File.separatorChar +"assets";
-	private static final String DB_FILENAME = "database.db"; 
-	private static final int DB_VERSION = 1;
 	
 	private static List<Property> propertyRecords = null;
 	private static List<Card> chanceCardRecords = null;
@@ -61,11 +59,11 @@ public class Asset {
 	@SuppressWarnings("unchecked")
 	public static List<Property> getProperties() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		SQLQuery q = session.createSQLQuery(
-		    "select PId,PName,PtName,PCost,PHouseCost,PMortageVal,PRgbColor,PPosX,PPosY,PtOwnable from Property inner join PropertyType on (PtId = PPtId)");
-		q.addEntity(Property.class);
-		return q.list();
-		
+		if (propertyRecords == null) {
+			Criteria criteria = session.createCriteria(Property.class);
+			propertyRecords = criteria.list();
+		}
+		return propertyRecords;
 	}
 	
 	/**
@@ -80,7 +78,7 @@ public class Asset {
 		Vector<Property> result = new Vector<Property>(4);
 		if (props != null) {
 			for (Property prop : props) {
-				if (prop.getPtOwnable() != 0) {
+				if (prop.getPtOwnable()) {
 					result.addElement(prop);
 				}
 			}
@@ -110,7 +108,7 @@ public class Asset {
 		
 	}
 	
-	public static Property getSingleProperty(int PId) {
+	public static Property getSingleProperty(long PId) {
 		Property found = null;
 		// try {
 		// getPropertyModel().getObjectModel(Property.class).getFirst("PId = " +
@@ -169,22 +167,6 @@ public class Asset {
 			return new Font ("Arial", Font.PLAIN, 20);
 		}
 		return null;
-	}
-	
-	/**
-	 * 
-	 * @return {@link Asset#DB_FILENAME}
-	 */
-	public static String getDbName() {
-		return DB_FILENAME;
-	}
-	
-	/**
-	 * 
-	 * @return {@link Asset#DB_VERSION}
-	 */
-	public static int getDbVersion() {
-		return DB_VERSION;
 	}
 	
 	public static class ImageFileFilter implements FileFilter {

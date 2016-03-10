@@ -14,7 +14,7 @@ public class AssetLoaderTest {
 
 	@Test
 	public void loadPropertyCardsTest() {
-		List<Property> props = Asset.getAllPropertyRecords();
+		List<Property> props = Asset.getProperties();
 
 		assertEquals("Not all properties have been loaded", props.size(), 40);
 	}

@@ -2,6 +2,20 @@ package com.britzj.monopoly.model.persistent;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Each instance of this class represents each of the 40 spaces on the Monopoly
@@ -14,33 +28,53 @@ import java.awt.Point;
  * @version 1.0
  * @since 1.0
  */
-
-
-public class Property {
+@Entity
+@Table(name = "Property")
+public class Property implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** Database table fields **/
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PId")
 	private int PId;
 
+	@Column(name = "PName")
 	private String PName;
 
-	private String PtName;
-
+	@Column(name = "PCost")
 	private long PCost;
 
+	@Column(name = "PHouseCost")
 	private long PHouseCost;
 
+	@Column(name = "PMortageVal")
 	private long PMortageVal;
 
+	@Column(name = "PRgbColor")
 	private String PRgbColor;
 
+	@Column(name = "PPosX")
 	private int PPosX;
 
+	@Column(name = "PPosY")
 	private int PPosY;
 
-	private int PtOwnable;
+	@ManyToOne
+	@JoinColumn(name = "PPtId")
+	private PropertyType type;
+
+	@OneToMany(mappedBy = "property")
+	private Set<Tariff> tariffs;
 
 	/** Auxiliary fields **/
+	@Transient
 	private Point location;
+	@Transient
 	private Color color;
 
 	Property() {
@@ -52,7 +86,7 @@ public class Property {
 	 * 
 	 * @return PId
 	 */
-	public int getPId() {
+	public long getPId() {
 		return PId;
 	}
 
@@ -123,20 +157,20 @@ public class Property {
 		return PPosY;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getPtName() {
-		return PtName;
+		return type.getPtName();
 	}
 
-	public void setPtName(String ptName) {
-		PtName = ptName;
-	}
-
-	public int getPtOwnable() {
-		return PtOwnable;
-	}
-
-	public void setPtOwnable(int ptOwnable) {
-		PtOwnable = ptOwnable;
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean getPtOwnable() {
+		return type.getPtOwnable();
 	}
 
 	/**
@@ -156,9 +190,9 @@ public class Property {
 	 * @return (if any) Array of {@link Tariff} objects, which are applicable to
 	 *         this property.
 	 */
-	// public ArrayList<Tariff> getTariffs() {
-	// return tariffs;
-	// }
+	public ArrayList<Tariff> getTariffs() {
+		return new ArrayList<Tariff>(tariffs);
+	}
 
 	/**
 	 * Returns the color of the property, if it doesn't have a color it returns
