@@ -44,6 +44,10 @@ public class LinkedList {
 		size++;
 	}
 	
+	/**
+	 * 
+	 * @param player
+	 */
 	public void remove(Player player) {
 		// TODO: Not yet implemented
 	}
@@ -97,14 +101,26 @@ public class LinkedList {
 		return this.size;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isEmpty() {
 		return size == 0;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Node getHeadNode() {
 		return this.headNode;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Node getInitNode() {
 		return this.initNode;
 	}
