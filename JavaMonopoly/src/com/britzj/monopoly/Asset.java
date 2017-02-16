@@ -50,6 +50,7 @@ public class Asset {
 	}
 	
 	/**
+	 * Dummy Comment
 	 * 
 	 * @return
 	 * @throws SQLException

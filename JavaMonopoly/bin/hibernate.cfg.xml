@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        
+        <!-- Shows SQL being executed by Hibernate -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        
+        <!-- SQLite Dialect -->
+        <property name="dialect">com.britzj.monopoly.util.SQLiteDialect</property>
+        
+        <!-- DB Connection Details -->
+        <property name="connection.url">jdbc:sqlite:database.db</property>
+        <property name="connection.driver_class">org.sqlite.JDBC</property>
+        <property name="connection.username"></property>
+        <property name="connection.password"></property>
+        
+        <!-- Disable Auto-commit -->
+        <property name="hibernate.connection.autocommit">false</property>
+        
+        <!-- JDBC connection pool (use built-in) -->
+        <property name="connection_pool.size">1</property>
+        
+        <!-- Mapping all Java object models -->
+        <mapping class="com.britzj.monopoly.model.persistent.Property" />
+        <mapping class="com.britzj.monopoly.model.persistent.PropertyType" />
+        <mapping class="com.britzj.monopoly.model.persistent.Tariff" />
+        
+    </session-factory>
+</hibernate-configuration>
