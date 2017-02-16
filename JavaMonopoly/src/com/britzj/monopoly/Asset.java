@@ -50,7 +50,7 @@ public class Asset {
 	}
 	
 	/**
-	 * Dummy Comment
+	 * Dummy Comment Another dummy commend to check how git rebase works
 	 * 
 	 * @return
 	 * @throws SQLException
