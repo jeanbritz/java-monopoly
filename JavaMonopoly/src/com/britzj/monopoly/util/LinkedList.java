@@ -50,9 +50,11 @@ public class LinkedList {
 	 */
 	public void remove(Player player) {
 		// TODO: Not yet implemented
+		// Change 1
 	}
 
 	/**
+	 * Change 2
 	 * 
 	 * @param index
 	 * @return
@@ -102,6 +104,7 @@ public class LinkedList {
 	}
 	
 	/**
+	 * Change 3
 	 * 
 	 * @return
 	 */
