@@ -46,7 +46,7 @@ abstract class AbstractView extends JPanel implements Viewable {
 		titledBorder = new TitledBorder(border, title, 1, 1, font, Color.black);
 		panelTop.setBorder(titledBorder);
 		add(panelTop, BorderLayout.CENTER);
-		initView();
+
 	}
 	
 	/**

@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import com.britzj.monopoly.Asset;
 import com.britzj.monopoly.Game;
+import com.britzj.monopoly.AppLogger;
 import com.britzj.monopoly.model.persistent.Property;
 import com.britzj.monopoly.view.framework.PlayerActionEvents;
 
@@ -121,25 +122,25 @@ public class Player implements PlayerActionEvents {
 	@Override
 	public void onRollClick() {
 		Game.getDice().roll();
-		System.out.println("onRollClick");
+		AppLogger.info("onRollClick");
 
 	}
 
 	@Override
 	public void onEndTurnClick() {
-		System.out.println("onEndTurnClick");
+		AppLogger.info("onEndTurnClick");
 
 	}
 
 	@Override
 	public void onBuyClick() {
-		System.out.println("onBuyClick");
+		AppLogger.info("onBuyClick");
 
 	}
 
 	@Override
 	public void onCheckRentClick() {
-		System.out.println("onCheckRentClick");
+		AppLogger.info("onCheckRentClick");
 
 	}
 

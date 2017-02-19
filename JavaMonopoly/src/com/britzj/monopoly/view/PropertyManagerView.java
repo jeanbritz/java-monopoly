@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.britzj.monopoly.Asset;
 import com.britzj.monopoly.model.persistent.Property;
+import com.britzj.monopoly.model.persistent.PropertyType;
 import com.britzj.monopoly.view.dialog.PropertyCardDialog;
 
 /**
@@ -58,11 +59,7 @@ public class PropertyManagerView extends AbstractView
 		
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.britzj.monopoly.views.AbstractView#initView()
-	 */
+
 	@Override
 	public void initView() {
 		listAll = new JList<Property>();
@@ -93,25 +90,15 @@ public class PropertyManagerView extends AbstractView
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.britzj.monopoly.views.AbstractView#updateView()
-	 */
 	@Override
 	public void updateView() {
 				
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if(event.getSource() == buttonView) {
+		if (event.getActionCommand().equals("View")) {
 			if(listAll.getSelectedValue() != null) {
 				viewer.setData(listAll.getSelectedValue());
 				viewer.setVisible(true);
@@ -119,17 +106,10 @@ public class PropertyManagerView extends AbstractView
 		}
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.
-	 * ListSelectionEvent)
-	 */
+
 	@Override
 	public void valueChanged(ListSelectionEvent event) {
 		if(event.getValueIsAdjusting()) {
-			
 			if(event.getSource() == listAll) {
 				
 			}
@@ -140,7 +120,12 @@ public class PropertyManagerView extends AbstractView
 		}
 		
 	}
-	
+
+	/**
+	 * 
+	 * @author Jean
+	 *
+	 */
 	class PropertyListCell extends JLabel implements ListCellRenderer<Property> {
 
 		/**
@@ -160,13 +145,15 @@ public class PropertyManagerView extends AbstractView
 				JList<? extends Property> list, Property property, int index,
 				boolean isSelected, boolean cellHasFocus) {
 							
-			if (property.getPtName().equals("Station")) {
+			if (property.getPtId() == PropertyType.STATION) {
 					setIcon(Asset.loadImageIcon("train"));
-				} else if (property.getPName().equals("Water")) {
+			} else if (property.getPtId() == PropertyType.BOARD) {
+				if (property.getPName().equals("Water")) {
 					setIcon(Asset.loadImageIcon("waterboard"));
-				} else if (property.getPName().equals("Electricity")) {
-					setIcon(Asset.loadImageIcon("electricity"));
 				} else {
+					setIcon(Asset.loadImageIcon("electricity"));
+				}
+			} else {
 					// Most probably a Street, Avenue, etc...
 					setIcon(Asset.loadImageIcon("property"));
 				}

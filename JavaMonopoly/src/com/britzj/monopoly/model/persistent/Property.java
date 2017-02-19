@@ -165,6 +165,10 @@ public class Property implements Serializable {
 		return type.getPtName();
 	}
 
+	public long getPtId() {
+		return type.getPtId();
+	}
+
 	/**
 	 * 
 	 * @return
@@ -205,7 +209,10 @@ public class Property implements Serializable {
 		if (PRgbColor != null && !PRgbColor.isEmpty()) {
 			String comp[] = getPRgbColor().split("[,]");
 			if (color == null) {
-				color = new Color(Integer.valueOf(comp[0]), Integer.valueOf(comp[1]), Integer.valueOf(comp[2]));
+				int r = Integer.parseInt(comp[0]);
+				int g = Integer.parseInt(comp[1]);
+				int b = Integer.parseInt(comp[2]);
+				color = new Color(r, g, b);
 			}
 		} else {
 			return Color.white;

@@ -1,21 +1,27 @@
 package com.britzj.monopoly;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+
 import javax.swing.UIManager;
 
 import com.britzj.monopoly.controller.Banker;
 import com.britzj.monopoly.view.Frontend;
 
-public class Genesis {
-	Banker banker;
-	Frontend fe;
+public class Genesis implements UncaughtExceptionHandler {
+	private static Banker banker;
+	private static Frontend fe;
 
-	Genesis() {
+	private Genesis() {
+
+	}
+
+	public void init() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			banker = new Banker();
 			fe = new Frontend(banker);
 		} catch (Exception e) {
-			e.printStackTrace(System.err);
+			AppLogger.severe(e.getMessage(), e);
 			Asset.showErrorMessage("Error has occurred, check the logs \n" + e.getMessage());
 		}
 
@@ -27,12 +33,19 @@ public class Genesis {
 		Thread feThread = new Thread(fe);
 		feThread.setName("The Frontend");
 		feThread.start();
+
+		Thread.setDefaultUncaughtExceptionHandler(this);
 	}
 
 	public static void main(String[] args) {
+		Genesis g = new Genesis();
+		g.init();
 
-		Genesis m = new Genesis();
+	}
 
+	@Override
+	public void uncaughtException(Thread t, Throwable e) {
+		AppLogger.severe("Thread [" + t.getName() + "] caused to throw an uncaught exception", e);
 	}
 
 }
