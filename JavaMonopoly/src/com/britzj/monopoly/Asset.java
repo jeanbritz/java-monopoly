@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import com.britzj.monopoly.model.persistent.Card;
@@ -57,13 +60,18 @@ public class Asset {
 	 * @throws ClassNotFoundException
 	 * @throws NoSuchFieldException
 	 */
-	@SuppressWarnings("unchecked")
 	public static List<Property> getProperties() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
+		EntityManager manager = session.getEntityManagerFactory().createEntityManager();
 		if (propertyRecords == null) {
-			Criteria criteria = session.createCriteria(Property.class);
-			propertyRecords = criteria.list();
+			CriteriaBuilder criteria = manager.getCriteriaBuilder();
+			CriteriaQuery<Property> query = criteria.createQuery(Property.class);
+			Root<Property> root = query.from(Property.class);
+			query.select(root);
+			propertyRecords = manager.createQuery(query).getResultList();
+
 		}
+		session.close();
 		return propertyRecords;
 	}
 	
