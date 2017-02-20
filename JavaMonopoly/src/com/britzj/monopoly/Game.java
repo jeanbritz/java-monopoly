@@ -49,4 +49,12 @@ public class Game {
 	public static String getTitle() {
 		return TITLE;
 	}
+
+	public static boolean isDebugMode() {
+		String debug = System.getProperty("debug");
+		if (debug != null) {
+			return Boolean.parseBoolean(debug);
+		}
+		return false;
+	}
 }

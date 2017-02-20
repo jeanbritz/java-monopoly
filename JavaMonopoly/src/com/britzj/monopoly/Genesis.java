@@ -1,6 +1,7 @@
 package com.britzj.monopoly;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Map;
 
 import javax.swing.UIManager;
 
@@ -38,9 +39,24 @@ public class Genesis implements UncaughtExceptionHandler {
 	}
 
 	public static void main(String[] args) {
+		if (Game.isDebugMode()) {
+		printEnvironmentVariables();
+		}
 		Genesis g = new Genesis();
 		g.init();
 
+	}
+
+	public static void printEnvironmentVariables() {
+		Map<String,String> env = System.getenv();
+		StringBuilder sb = new StringBuilder();
+		sb.append("================================\n");
+		sb.append("    Environmental Variables\n");
+		sb.append("================================\n");
+		for(String key : env.keySet()) {
+			sb.append(key+"="+env.get(key)+'\n');
+		}
+		AppLogger.info(sb.toString());
 	}
 
 	@Override
