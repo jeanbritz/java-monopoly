@@ -1,7 +1,10 @@
 name: Semgrep SAST
 
 on:
+  # Scan changed files in PRs (diff-aware scanning):
   pull_request: {}
+  # Scan on-demand through GitHub Actions interface:
+  workflow_dispatch: {}
 
   push:
     branches: ["master", "main"]
@@ -18,7 +21,4 @@ jobs:
     if: (github.actor != 'dependabot[bot]')
     steps:
       - uses: actions/checkout@v3
-
       - run: semgrep ci
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
