@@ -1,0 +1,1 @@
+FROM eclipse-temurin:21.0.2_13-jre-jammy@sha256:91e50eaebb5efa56779a3c1bfb569f8132792e722bd23419897f889bac532ef3
